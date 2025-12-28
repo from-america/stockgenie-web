@@ -1,72 +1,224 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — StockGenie</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    :root {
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-highlight: rgba(255, 255, 255, 0.25);
+      --purple-glow: rgba(168, 85, 247, 0.5);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, rgb(13, 0, 38) 0%, rgb(26, 13, 51) 50%, rgb(38, 26, 64) 100%);
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Rounded', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      padding-top: 80px; /* Space for fixed nav */
+    }
+
+    /* Starfield */
+    .stars {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        radial-gradient(1px 1px at 5% 12%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1.5px 1.5px at 15% 35%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 28% 8%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 42% 62%, white, transparent),
+        radial-gradient(1px 1px at 55% 22%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1.5px 1.5px at 68% 78%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 82% 45%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1px 1px at 95% 15%, white, transparent);
+      background-size: 400px 400px;
+      animation: twinkle 8s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    /* Top Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.12) 0%,
+        rgba(255,255,255,0.06) 100%
+      );
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .nav-brand {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 8px 14px;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+    }
+    .nav-links a:hover {
+      color: white;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Legal Content Container */
+    .legal-container {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .legal-content {
+      background: white;
+      color: #1a1a1a;
+      padding: 48px;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    h3 {
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: #444;
+    }
+    p {
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      color: #444;
+    }
+    ul {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+      color: #444;
+    }
+    li {
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+    a {
+      color: #7c3aed;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+    footer a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: rgba(255,255,255,0.6);
+    }
+
+    @media (max-width: 600px) {
+      .legal-content {
+        padding: 24px;
+      }
+      h1 { font-size: 2rem; }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <h1>StockGenie</h1>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
-      </nav>
+  <div class="stars"></div>
+
+  <nav>
+    <a href="index.html" class="nav-brand">StockGenie</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
     </div>
-  </header>
+  </nav>
 
-  <main class="container">
-    <article>
-      <h2>Privacy Policy</h2>
-      <p>Last updated: November 5, 2025</p>
+  <div class="legal-container">
+    <div class="legal-content">
+      <h1>Privacy Policy</h1>
+      <p><strong>Last updated: May 20, 2024</strong></p>
 
-      <h3>1. Introduction</h3>
-      <p>This Privacy Policy describes how StockGenie ("we", "us", or "our") collects, uses, and discloses your information when you use our mobile application (the "Service"). We are committed to protecting your privacy and handling your data in an open and transparent manner.</p>
+      <h3>1. Privacy-First Design</h3>
+      <p>StockGenie is built with a privacy-first philosophy. We do not require you to create an account, provide an email address, or share your name to use the application. Your stock watchlists and app preferences are stored locally on your device and are never transmitted to our servers.</p>
 
-      <h3>2. Information We Collect</h3>
-      <p>We collect a minimal amount of information to provide and improve our Service. The information we collect includes:</p>
-      <ul>
-        <li><strong>Usage Data:</strong> We may collect anonymous data about how you interact with the Service, such as the features you use and the time you spend in the app. This helps us understand user behavior and improve the user experience. This data is aggregated and does not personally identify you.</li>
-        <li><strong>Device Information:</strong> We may collect non-personally identifiable information about your device, such as the model, operating system version, and a unique device identifier for analytics and crash reporting purposes.</li>
-        <li><strong>Purchase Information:</strong> If you subscribe to our premium features, the transaction is processed through the Apple App Store. We receive anonymous, aggregated data from the App Store for financial reporting and to verify purchases, but we do not collect or store your payment information.</li>
-      </ul>
+      <h3>2. Subscription Diagnostics (RevenueCat)</h3>
+      <p>To manage premium subscriptions and ensure you have access to the features you've purchased, we use a service called RevenueCat. When you interact with our subscription features, RevenueCat may collect technical identifiers (such as your App Store anonymous ID) and transaction history. This data is used strictly for diagnostic purposes, such as verifying your purchase status, processing restores, and troubleshooting subscription issues. We do not use this data to track your identity outside of the app.</p>
 
-      <h3>3. Information We Do Not Collect</h3>
+      <h3>3. Market Data Sources</h3>
+      <p>Our AI analysis relies on market data from providers like Polygon.io and Finnhub. These services receive requests for stock data but do not receive any information about you or your specific usage of the app. We do not share any user-specific data with these providers.</p>
+
+      <h3>4. Information We Do Not Collect</h3>
       <p>We are committed to your privacy and do not collect any Personally Identifiable Information (PII). This includes, but is not limited to:</p>
       <ul>
         <li>Your name, email address, or phone number.</li>
-        <li>Your location data.</li>
+        <li>Your precise location data.</li>
         <li>Your financial information or brokerage account details.</li>
       </ul>
 
-      <h3>4. Third-Party Data Sources</h3>
-      <p>The Service relies on third-party data providers (e.g., Finnhub, Polygon.io) to source stock market data. We do not share any of your personal information with these providers. Your use of our Service is also subject to the terms and privacy policies of these third parties.</p>
+      <h3>5. Security</h3>
+      <p>We implement reasonable security measures to protect the minimal technical information we process. However, no security system is impenetrable, and we cannot guarantee the absolute security of your information.</p>
 
-      <h3>5. Data Storage</h3>
-      <p>Your watchlist, settings, and other preferences are stored locally on your device. This data is not transmitted to our servers and remains under your control.</p>
+      <h3>6. Changes to This Privacy Policy</h3>
+      <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.</p>
 
-      <h3>6. Security</h3>
-      <p>We implement reasonable security measures to protect the information we collect. However, no security system is impenetrable, and we cannot guarantee the absolute security of your information.</p>
-
-      <h3>7. Children's Privacy</h3>
-      <p>Our Service is not intended for individuals under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware that a child under 13 has provided us with personal information, we will take steps to delete such information.</p>
-
-      <h3>8. Changes to This Privacy Policy</h3>
-      <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date. We encourage you to review this Privacy Policy periodically for any changes.</p>
-
-      <h3>9. Contact Us</h3>
+      <h3>7. Contact Us</h3>
       <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:StockGenie@fromamerica-llc.com">StockGenie@fromamerica-llc.com</a>.</p>
-    </article>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <small>© <span id="year"></span> <a href="https://fromamerica-llc.com/" target="_blank" rel="noopener noreferrer">FROM AMERICA LLC</a>, All rights reserved.</small>
     </div>
+  </div>
+
+  <footer>
+    © <span id="year"></span> <a href="https://fromamerica-llc.com/" target="_blank" rel="noopener noreferrer">FROM AMERICA LLC</a>. All rights reserved.
   </footer>
-  <script src="js/main.js"></script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

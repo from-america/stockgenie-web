@@ -1,65 +1,222 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terms of Service — StockGenie</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    :root {
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-highlight: rgba(255, 255, 255, 0.25);
+      --purple-glow: rgba(168, 85, 247, 0.5);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, rgb(13, 0, 38) 0%, rgb(26, 13, 51) 50%, rgb(38, 26, 64) 100%);
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Rounded', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      padding-top: 80px; /* Space for fixed nav */
+    }
+
+    /* Starfield */
+    .stars {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        radial-gradient(1px 1px at 5% 12%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1.5px 1.5px at 15% 35%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 28% 8%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 42% 62%, white, transparent),
+        radial-gradient(1px 1px at 55% 22%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1.5px 1.5px at 68% 78%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 82% 45%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1px 1px at 95% 15%, white, transparent);
+      background-size: 400px 400px;
+      animation: twinkle 8s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    /* Top Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.12) 0%,
+        rgba(255,255,255,0.06) 100%
+      );
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .nav-brand {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 8px 14px;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+    }
+    .nav-links a:hover {
+      color: white;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Legal Content Container */
+    .legal-container {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .legal-content {
+      background: white;
+      color: #1a1a1a;
+      padding: 48px;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    h3 {
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: #444;
+    }
+    p {
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      color: #444;
+    }
+    ul {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+      color: #444;
+    }
+    li {
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+    a {
+      color: #7c3aed;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+    footer a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: rgba(255,255,255,0.6);
+    }
+
+    @media (max-width: 600px) {
+      .legal-content {
+        padding: 24px;
+      }
+      h1 { font-size: 2rem; }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <h1>StockGenie</h1>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
-      </nav>
-    </div>
-  </header>
+  <div class="stars"></div>
 
-  <main class="container">
-    <article>
-      <h2>Terms of Service</h2>
-      <p>Last updated: November 5, 2025</p>
+  <nav>
+    <a href="index.html" class="nav-brand">StockGenie</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </nav>
+
+  <div class="legal-container">
+    <div class="legal-content">
+      <h1>Terms of Service</h1>
+      <p><strong>Last updated: May 20, 2024</strong></p>
 
       <h3>1. Acceptance of Terms</h3>
       <p>By downloading, accessing, or using the StockGenie mobile application ("Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.</p>
 
-      <h3>2. Description of Service</h3>
-      <p>StockGenie provides AI-generated stock market analysis and information for educational and informational purposes only. The Service is not intended to provide financial, investment, or legal advice.</p>
+      <h3>2. Not Financial Advice</h3>
+      <p>StockGenie provides AI-generated stock market analysis for informational purposes only. <strong>We are not financial advisors.</strong> The information provided, including daily stock picks, does not constitute investment advice, financial planning, or a recommendation to buy or sell any security. You should conduct your own research and consult with a licensed professional before making any financial decisions. Investing in the stock market involves significant risk, and you may lose your entire investment.</p>
 
-      <h3>3. Not Investment Advice</h3>
-      <p>The information provided by the Service, including any stock picks, analysis, or commentary, does not constitute investment advice, a recommendation, or a solicitation to buy or sell any securities. You should conduct your own research and consult with a qualified financial advisor before making any investment decisions. We are not liable for any losses or damages arising from your reliance on the information provided by the Service.</p>
+      <h3>3. Accuracy of Information</h3>
+      <p>While our AI models process real-time market data from reputable sources, we cannot guarantee the accuracy, completeness, or timeliness of the information provided. Market conditions change rapidly, and past performance is never a guarantee of future results.</p>
 
-      <h3>4. Subscription and Fees</h3>
-      <p>Certain features of the Service may be available only through a paid subscription. All subscription fees are processed through the Apple App Store. Subscriptions will automatically renew unless canceled at least 24 hours before the end of the current period. You can manage your subscriptions and cancel auto-renewal in your App Store account settings.</p>
+      <h3>4. Abuse and Fair Use</h3>
+      <p>You agree not to use the Service for any unlawful purpose or in any way that could damage, disable, or overburden our servers. We reserve the right to terminate or restrict access to any user who attempts to scrape our data, reverse-engineer our AI models, or bypass our subscription systems. Any attempt to manipulate the Service or its data is a violation of these terms.</p>
 
-      <h3>5. Intellectual Property</h3>
-      <p>All content and materials available on the Service, including but not to text, graphics, website name, code, images, and logos, are the intellectual property of StockGenie and are protected by applicable copyright and trademark law. Any unauthorized use, including but not to the reproduction, distribution, display, or transmission of any content on this site is strictly prohibited, unless specifically authorized by us.</p>
+      <h3>5. Subscriptions and Billing</h3>
+      <p>Premium features are available via a monthly subscription processed through the Apple App Store. Subscriptions automatically renew unless canceled at least 24 hours before the end of the current period. All billing disputes and refund requests must be handled through Apple. We use RevenueCat to verify subscription status and provide diagnostic support for your account.</p>
 
-      <h3>6. Disclaimer of Warranties</h3>
-      <p>The Service is provided on an "as is" and "as available" basis. We make no warranties, express or implied, regarding the accuracy, reliability, or completeness of the information provided. We disclaim all warranties, including but not to the implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+      <h3>6. Limitation of Liability</h3>
+      <p>To the maximum extent permitted by law, FROM AMERICA LLC and StockGenie shall not be liable for any financial losses, data loss, or incidental damages resulting from your use of the Service. You use this application at your own risk.</p>
 
-      <h3>7. Limitation of Liability</h3>
-      <p>In no event shall StockGenie, its officers, directors, employees, or agents, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Service; (ii) any conduct or content of any third party on the Service; (iii) any content obtained from the Service; and (iv) unauthorized access, use, or alteration of your transmissions or content, whether based on warranty, contract, tort (including negligence), or any other legal theory, whether or not we have been informed of the possibility of such damage.</p>
+      <h3>7. Governing Law</h3>
+      <p>These Terms shall be governed by the laws of the State of Illinois, United States. Any disputes arising from these terms will be resolved in the courts of Illinois.</p>
 
-      <h3>8. Governing Law</h3>
-      <p>These Terms shall be governed and construed in accordance with the laws of the State of Illinois, United States, without regard to its conflict of law provisions.</p>
-
-      <h3>9. Changes to Terms</h3>
-      <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
-
-      <h3>10. Contact Us</h3>
+      <h3>8. Contact Us</h3>
       <p>If you have any questions about these Terms, please contact us at <a href="mailto:StockGenie@fromamerica-llc.com">StockGenie@fromamerica-llc.com</a>.</p>
-    </article>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <small>© <span id="year"></span> <a href="https://fromamerica-llc.com/" target="_blank" rel="noopener noreferrer">FROM AMERICA LLC</a>, All rights reserved.</small>
     </div>
+  </div>
+
+  <footer>
+    © <span id="year"></span> <a href="https://fromamerica-llc.com/" target="_blank" rel="noopener noreferrer">FROM AMERICA LLC</a>. All rights reserved.
   </footer>
-  <script src="js/main.js"></script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

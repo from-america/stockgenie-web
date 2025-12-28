@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockGenie</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, rgb(13, 0, 38), rgb(26, 13, 51), rgb(38, 26, 64));
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', sans-serif;
+      overflow-x: hidden;
+    }
+    .stars {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: radial-gradient(2px 2px at 20px 30px, white, transparent),
+                        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                        radial-gradient(1px 1px at 90px 40px, white, transparent),
+                        radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.9), transparent),
+                        radial-gradient(1px 1px at 230px 80px, white, transparent),
+                        radial-gradient(2px 2px at 300px 150px, rgba(255,255,255,0.7), transparent);
+      background-size: 350px 200px;
+      animation: twinkle 4s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes twinkle { from { opacity: 0.5; } to { opacity: 1; } }
+    
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      color: rgba(255,255,255,0.7);
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+    }
+    .orb {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 3rem;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #a855f7, #7c3aed, #4c1d95);
+      box-shadow: 0 0 60px rgba(168, 85, 247, 0.6), 0 0 120px rgba(168, 85, 247, 0.3);
+      animation: pulse 4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 60px rgba(168,85,247,0.6); }
+      50% { transform: scale(1.03); box-shadow: 0 0 80px rgba(168,85,247,0.8); }
+    }
+    .facts {
+      text-align: left;
+      margin-bottom: 3rem;
+    }
+    .fact {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .fact:last-child { border-bottom: none; }
+    .fact-icon { font-size: 1.5rem; }
+    .fact-text { color: rgba(255,255,255,0.9); }
+    
+    nav {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 3rem;
+    }
+    nav a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    nav a:hover { color: white; }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="container">
+    <h1>StockGenie</h1>
+    <p class="subtitle">Your Daily AI Market Whisper</p>
+    
+    <div class="orb"></div>
+    
+    <div class="facts">
+      <div class="fact">
+        <span class="fact-icon">📈</span>
+        <span class="fact-text">AI-powered stock picks daily at 9 AM ET</span>
+      </div>
+      <div class="fact">
+        <span class="fact-icon">🎁</span>
+        <span class="fact-text">1 free stock pick every weekday</span>
+      </div>
+      <div class="fact">
+        <span class="fact-icon">⭐</span>
+        <span class="fact-text">Premium: 5 stocks + full history for $4.99/mo</span>
+      </div>
+    </div>
+    
+    <nav>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </nav>
+  </div>
+</body>
+</html>

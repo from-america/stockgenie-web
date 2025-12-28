@@ -1,44 +1,346 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>StockGenie — Privacy & Terms</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockGenie</title>
+  <style>
+    :root {
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-highlight: rgba(255, 255, 255, 0.25);
+      --purple-glow: rgba(168, 85, 247, 0.5);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, rgb(13, 0, 38) 0%, rgb(26, 13, 51) 50%, rgb(38, 26, 64) 100%);
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Rounded', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Starfield */
+    .stars {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        radial-gradient(1px 1px at 5% 12%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1.5px 1.5px at 15% 35%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 28% 8%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 42% 62%, white, transparent),
+        radial-gradient(1px 1px at 55% 22%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1.5px 1.5px at 68% 78%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 82% 45%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1px 1px at 95% 15%, white, transparent);
+      background-size: 400px 400px;
+      animation: twinkle 8s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    /* Liquid Glass */
+    .glass {
+      background: linear-gradient(
+        135deg,
+        var(--glass-highlight) 0%,
+        var(--glass-bg) 40%,
+        rgba(255,255,255,0.05) 100%
+      );
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    /* Top Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.12) 0%,
+        rgba(255,255,255,0.06) 100%
+      );
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .nav-brand {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 8px 14px;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+    }
+    .nav-links a:hover {
+      color: white;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Sections */
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 24px 60px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-section {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    /* Title */
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+    }
+
+    /* Globe/Orb */
+    .app-icon-container {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin-bottom: 2.5rem;
+      z-index: 2;
+    }
+    .app-icon {
+      width: 100%;
+      height: 100%;
+      border-radius: 40px; /* iOS icon shape approximation */
+      box-shadow: 
+        0 20px 60px rgba(0,0,0,0.5),
+        0 0 120px rgba(168, 85, 247, 0.4);
+      animation: float 6s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
+    }
+    .icon-glow {
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, transparent 70%);
+      filter: blur(20px);
+      z-index: 1;
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.1); }
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 2.5rem;
+    }
+
+    /* CTA Buttons */
+    .cta-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 16px;
+      text-decoration: none;
+      color: white;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+    .cta-btn svg {
+      width: 18px;
+      height: 18px;
+      opacity: 0.8;
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.4);
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: pulse-down 2s infinite;
+    }
+    @keyframes pulse-down {
+      0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+      50% { opacity: 0.7; transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* Info Section */
+    .info-section {
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.2));
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      width: 100%;
+    }
+    .info-card {
+      padding: 28px;
+      border-radius: 24px;
+      transition: transform 0.3s ease;
+    }
+    .info-card:hover {
+      transform: translateY(-4px);
+    }
+    .info-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .info-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .info-desc {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+    footer a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: rgba(255,255,255,0.6);
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <h1>StockGenie</h1>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
-      </nav>
+  <div class="stars"></div>
+
+  <!-- Fixed Nav -->
+  <nav>
+    <a href="#" class="nav-brand">StockGenie</a>
+    <div class="nav-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
     </div>
-  </header>
+  </nav>
 
-  <main class="container">
-    <section>
-      <h2>Welcome</h2>
-      <p>This site contains the Privacy Policy and Terms of Service for the StockGenie app. Use the links below to read each document in full.</p>
-    </section>
-
-    <section>
-      <h3>Quick links</h3>
-      <ul>
-        <li><a href="privacy.html">Privacy Policy</a></li>
-        <li><a href="terms.html">Terms of Service</a></li>
-      </ul>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <small>© <span id="year"></span> <a href="https://fromamerica-llc.com/" target="_blank" rel="noopener noreferrer">FROM AMERICA LLC</a>, All rights reserved.</small>
+  <!-- Hero -->
+  <section class="hero-section">
+    <h1>StockGenie</h1>
+    
+    <div class="app-icon-container">
+      <div class="icon-glow"></div>
+      <img src="app-icon.png" alt="StockGenie App Icon" class="app-icon">
     </div>
+    
+    <p class="tagline">Your Daily AI Market Whisper</p>
+    
+    <div class="cta-row">
+      <a href="terms.html" class="cta-btn glass">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/>
+        </svg>
+        Terms of Service
+      </a>
+      <a href="privacy.html" class="cta-btn glass">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Privacy Policy
+      </a>
+    </div>
+    
+    <div class="scroll-hint">
+      <span>Learn more</span>
+      <span>↓</span>
+    </div>
+  </section>
+
+  <!-- Info Section -->
+  <section class="info-section">
+    <div class="info-grid">
+      <div class="info-card glass">
+        <div class="info-title">Daily Market Analysis</div>
+        <div class="info-desc">Our AI processes market data every weekday morning to identify high-potential stocks before the market opens.</div>
+      </div>
+      <div class="info-card glass">
+        <div class="info-title">Free Daily Pick</div>
+        <div class="info-desc">Start with our top-rated stock pick of the day, delivered to your device every trading morning at no cost.</div>
+      </div>
+      <div class="info-card glass">
+        <div class="info-title">Premium Subscription</div>
+        <div class="info-desc">Access the full list of top 5 daily picks and explore a rolling 7-day history of AI performance for $4.99 per month.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> <a href="https://fromamerica-llc.com/" target="_blank" rel="noopener noreferrer">FROM AMERICA LLC</a>. All rights reserved.
   </footer>
 
-  <script src="js/main.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

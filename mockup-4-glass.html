@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockGenie</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, rgb(13, 0, 38) 0%, rgb(38, 26, 64) 50%, rgb(26, 13, 51) 100%);
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    .stars {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        radial-gradient(1px 1px at 10% 10%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1px 1px at 40% 30%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(2px 2px at 60% 70%, white, transparent),
+        radial-gradient(1px 1px at 80% 50%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 95% 85%, white, transparent);
+      background-size: 200px 200px;
+      pointer-events: none;
+    }
+    .card {
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 48px 40px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+    .orb {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #c084fc, #8b5cf6, #5b21b6);
+      box-shadow: 0 0 60px rgba(192, 132, 252, 0.5);
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .tagline {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 1.5rem 0;
+    }
+    .facts {
+      text-align: left;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.8);
+    }
+    .facts li {
+      list-style: none;
+      margin-bottom: 0.5rem;
+    }
+    .facts li::before {
+      content: "•";
+      color: #a855f7;
+      margin-right: 8px;
+    }
+    nav {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    nav a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    nav a:hover {
+      color: white;
+      background: rgba(255,255,255,0.1);
+    }
+    footer {
+      margin-top: auto;
+      padding-top: 40px;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  
+  <div class="card">
+    <div class="orb"></div>
+    <h1>StockGenie</h1>
+    <p class="tagline">Your Daily AI Market Whisper</p>
+    
+    <div class="divider"></div>
+    
+    <ul class="facts">
+      <li>AI stock picks published daily at 9 AM ET</li>
+      <li>1 free pick per day, 5 picks with Premium</li>
+      <li>7-day performance history included</li>
+    </ul>
+    
+    <nav>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </div>
+  
+  <footer>© 2025 StockGenie</footer>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockGenie</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, rgb(13, 0, 38), rgb(26, 13, 51), rgb(38, 26, 64));
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+    .stars {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        radial-gradient(1px 1px at 10% 20%, white, transparent),
+        radial-gradient(1px 1px at 30% 65%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 50% 10%, white, transparent),
+        radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1px 1px at 85% 30%, white, transparent);
+      background-size: 250px 250px;
+      animation: drift 60s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes drift { to { background-position: 250px 250px; } }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero {
+      text-align: center;
+      max-width: 500px;
+    }
+    .orb-wrap {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 2rem;
+    }
+    .orb {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #c084fc, #8b5cf6, #5b21b6);
+      box-shadow: 0 0 80px rgba(192, 132, 252, 0.5);
+    }
+    .ring {
+      position: absolute;
+      inset: -20px;
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      animation: spin 20s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    h1 { font-size: 2.75rem; font-weight: 700; }
+    .tagline { color: rgba(255,255,255,0.6); margin: 0.5rem 0 2rem; }
+    
+    .facts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .fact {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    footer a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      margin: 0 1rem;
+      font-size: 0.85rem;
+    }
+    footer a:hover { color: white; }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <main>
+    <div class="hero">
+      <div class="orb-wrap">
+        <div class="ring"></div>
+        <div class="orb"></div>
+      </div>
+      <h1>StockGenie</h1>
+      <p class="tagline">Your Daily AI Market Whisper</p>
+      <div class="facts">
+        <div class="fact">📈 Fresh AI stock picks every weekday at 9 AM ET</div>
+        <div class="fact">🎁 Free users get 1 top pick daily</div>
+        <div class="fact">⭐ Premium unlocks 5 picks + 7-day history</div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </footer>
+</body>
+</html>

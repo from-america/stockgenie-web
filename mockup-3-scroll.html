@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockGenie</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: rgb(13, 0, 38);
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', sans-serif;
+    }
+    .stars {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        radial-gradient(1px 1px at 5% 15%, white, transparent),
+        radial-gradient(2px 2px at 25% 45%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 55% 25%, white, transparent),
+        radial-gradient(1px 1px at 75% 70%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 90% 20%, white, transparent);
+      background-size: 300px 300px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-section {
+      background: linear-gradient(180deg, rgb(13,0,38), rgb(26,13,51));
+    }
+    .info-section {
+      background: linear-gradient(180deg, rgb(26,13,51), rgb(38,26,64));
+    }
+    .links-section {
+      background: rgb(38,26,64);
+      min-height: 50vh;
+    }
+    .content { max-width: 500px; text-align: center; }
+    
+    .orb {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 2rem;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #a855f7, #7c3aed, #4c1d95);
+      box-shadow: 0 0 100px rgba(168, 85, 247, 0.6);
+    }
+    h1 { font-size: 3rem; font-weight: 700; }
+    .tagline { color: rgba(255,255,255,0.6); margin-top: 0.5rem; }
+    .scroll-hint {
+      margin-top: 3rem;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.9rem;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    .fact-list { text-align: left; }
+    .fact-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+    .fact-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .fact-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+    .fact-desc {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+    }
+
+    .link-cards {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .link-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 24px 32px;
+      text-decoration: none;
+      color: white;
+      transition: background 0.2s;
+    }
+    .link-card:hover { background: rgba(255,255,255,0.1); }
+    .link-card h3 { font-size: 1.1rem; margin-bottom: 4px; }
+    .link-card p { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+
+  <section class="hero-section">
+    <div class="content">
+      <div class="orb"></div>
+      <h1>StockGenie</h1>
+      <p class="tagline">Your Daily AI Market Whisper</p>
+      <p class="scroll-hint">↓ scroll</p>
+    </div>
+  </section>
+
+  <section class="info-section">
+    <div class="content fact-list">
+      <div class="fact-item">
+        <span class="fact-icon">🤖</span>
+        <div>
+          <div class="fact-title">AI-Powered Analysis</div>
+          <div class="fact-desc">Our AI analyzes market data every weekday at 9 AM ET</div>
+        </div>
+      </div>
+      <div class="fact-item">
+        <span class="fact-icon">📊</span>
+        <div>
+          <div class="fact-title">Top 5 Daily Picks</div>
+          <div class="fact-desc">Ranked stocks based on sentiment, momentum & fundamentals</div>
+        </div>
+      </div>
+      <div class="fact-item">
+        <span class="fact-icon">🎁</span>
+        <div>
+          <div class="fact-title">Free Daily Pick</div>
+          <div class="fact-desc">Get the #1 rated stock free every trading day</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="links-section">
+    <div class="link-cards">
+      <a href="privacy.html" class="link-card">
+        <h3>Privacy Policy</h3>
+        <p>How we handle your data</p>
+      </a>
+      <a href="terms.html" class="link-card">
+        <h3>Terms of Service</h3>
+        <p>Usage guidelines</p>
+      </a>
+    </div>
+  </section>
+</body>
+</html>
