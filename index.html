@@ -633,54 +633,59 @@
         <div class="step-card">
           <div class="step-number">1</div>
           <h3 class="step-title">Data Sources</h3>
-          <p class="step-desc">We aggregate market signals from financial newspapers, analyst reports, and financial article feeds.</p>
+          <p class="step-desc">We aggregate market signals from financial newspapers, analyst reports, and financial article feeds across multiple providers.</p>
         </div>
         <div class="step-card">
           <div class="step-number">2</div>
-          <h3 class="step-title">NLP Analysis</h3>
-          <p class="step-desc">Our machine learning models analyze sentiment, detect key catalysts (earnings, FDA approvals, partnerships), and identify pure-play opportunities.</p>
+          <h3 class="step-title">Semantic Embeddings</h3>
+          <p class="step-desc">Every article is embedded into a 384-dimensional vector. Near-identical syndicated reposts collapse into a single story, and articles are ranked by relevance to each company's thesis — no keyword matching, no random sampling.</p>
         </div>
         <div class="step-card">
           <div class="step-number">3</div>
-          <h3 class="step-title">Intelligent Ranking</h3>
-          <p class="step-desc">We weight quality signals over raw volume, penalize mega-caps to surface hidden gems, and boost stocks with clear, actionable narratives.</p>
+          <h3 class="step-title">Narrative Concentration</h3>
+          <p class="step-desc">We cluster the day's coverage and measure how tightly it focuses on a single story. One tight cluster across many sources is the real "strong narrative" signal — scattered chatter is noise.</p>
         </div>
         <div class="step-card">
           <div class="step-number">4</div>
+          <h3 class="step-title">Intelligent Ranking</h3>
+          <p class="step-desc">We weight quality signals over raw volume, penalize mega-caps to surface hidden gems, and boost stocks with focused, high-concentration narratives.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">5</div>
           <h3 class="step-title">Single Output</h3>
           <p class="step-desc">The top-ranked stock is delivered to your phone at 9AM EST on trading days. Premium subscribers get the full top-5 list at the same time.</p>
         </div>
       </div>
 
       <div class="code-section">
-        <div class="code-title">The Aggregation Algorithm</div>
-        <div class="code-block"><pre><code><span class="code-comment">// Simplified aggregation workflow</span>
-<span class="code-keyword">const</span> aggregateAndRank = <span class="code-keyword">function</span>(sources) {
-  <span class="code-keyword">const</span> scoredStocks = sources.<span class="code-keyword">map</span>(stock => {
-    <span class="code-keyword">let</span> score = <span class="code-number">0</span>;
-    
-    <span class="code-comment">// Base signals: confidence, sentiment, source quality</span>
-    score += (confidence × <span class="code-number">0.45</span>)
-           + (sentiment × <span class="code-number">0.20</span>)
-           + (qualitySources × <span class="code-number">0.05</span>);
-    
-    <span class="code-comment">// Catalyst boost: earnings, FDA, partnerships, etc.</span>
-    <span class="code-keyword">if</span> (detectCatalysts(articles) > <span class="code-number">1</span>) {
-      score *= <span class="code-number">1.40</span>; <span class="code-comment">// +40% bonus</span>
-    }
-    
-    <span class="code-comment">// Penalize mega-caps, reward small/mid-cap gems</span>
-    <span class="code-keyword">if</span> (isMegaCap) {
-      score *= <span class="code-number">0.75</span>; <span class="code-comment">// -25% penalty</span>
-    } <span class="code-keyword">else if</span> (isSmallCap) {
-      score *= <span class="code-number">1.35</span>; <span class="code-comment">// +35% bonus</span>
-    }
-    
-    <span class="code-keyword">return</span> { ticker, score };
-  });
-  
-  <span class="code-keyword">return</span> scoredStocks.<span class="code-keyword">sortBy</span>(score).<span class="code-keyword">slice</span>(<span class="code-number">0</span>, <span class="code-number">5</span>);
-};</code></pre></div>
+        <div class="code-title">The Semantic Sorting Algorithm</div>
+        <div class="code-block"><pre><code><span class="code-comment">// 1. Embed every article once (Cloudflare Workers AI, bge-small-en-v1.5)</span>
+<span class="code-keyword">const</span> vectors = <span class="code-keyword">await</span> embed(articles.<span class="code-keyword">map</span>(a => a.title + a.summary));
+
+<span class="code-comment">// 2. Collapse syndicated reposts (cosine ≥ 0.88 = same story)</span>
+<span class="code-keyword">const</span> unique = dedupByCosine(articles, vectors, <span class="code-number">0.88</span>);
+
+<span class="code-comment">// 3. Cluster what's left → narrative concentration (0..1)</span>
+<span class="code-keyword">const</span> clusters = clusterByCosine(unique, <span class="code-number">0.78</span>);
+<span class="code-keyword">const</span> narrativeConc = <span class="code-number">1</span> - (clusters.length - <span class="code-number">1</span>) / (unique.length - <span class="code-number">1</span>);
+
+<span class="code-comment">// 4. Rank "top reasons" by relevance to the ticker thesis,</span>
+<span class="code-comment">//    not by random sampling</span>
+<span class="code-keyword">const</span> anchor = <span class="code-keyword">await</span> embed([ticker + <span class="code-string">" "</span> + sector + <span class="code-string">" outlook"</span>]);
+<span class="code-keyword">const</span> topReasons = unique
+  .<span class="code-keyword">map</span>(a => ({ a, sim: cosine(a.vec, anchor) }))
+  .<span class="code-keyword">sort</span>((x, y) => y.sim - x.sim)
+  .<span class="code-keyword">slice</span>(<span class="code-number">0</span>, <span class="code-number">3</span>);
+
+<span class="code-comment">// 5. Combined score uses the measured narrative signal</span>
+<span class="code-keyword">let</span> score = (confidence × <span class="code-number">0.45</span>)
+          + (sentiment × <span class="code-number">0.20</span>)
+          + (narrativeConc × <span class="code-number">0.20</span>)
+          + (qualitySources × <span class="code-number">0.05</span>);
+
+<span class="code-keyword">if</span> (isMegaCap) score *= <span class="code-number">0.75</span>;   <span class="code-comment">// -25%: deprioritize obvious picks</span>
+<span class="code-keyword">if</span> (isSmallCap) score *= <span class="code-number">1.35</span>;  <span class="code-comment">// +35%: surface hidden gems</span>
+<span class="code-keyword">if</span> (isPurePlay) score *= <span class="code-number">1.30</span>; <span class="code-comment">// +30%: focused exposure</span></code></pre></div>
       </div>
     </div>
   </section>
