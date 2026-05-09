@@ -229,6 +229,84 @@
       padding: 7px 14px !important;
     }
 
+    /* Mobile App Store banner (custom, since Apple's Smart Banner only
+       activates once an app is live in the App Store). */
+    .ios-banner {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .ios-banner {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        padding: 8px 12px;
+        background: rgba(20, 8, 46, 0.92);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        font-size: 0.85rem;
+        animation: ios-banner-in 0.3s ease-out;
+      }
+      .ios-banner.hidden {
+        display: none;
+      }
+      .ios-banner-dismiss {
+        background: none;
+        border: none;
+        color: rgba(255,255,255,0.5);
+        font-size: 1.4rem;
+        line-height: 1;
+        padding: 4px 8px;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+      .ios-banner-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 9px;
+        flex-shrink: 0;
+      }
+      .ios-banner-text {
+        flex: 1;
+        line-height: 1.25;
+        min-width: 0;
+      }
+      .ios-banner-title {
+        color: white;
+        font-weight: 600;
+      }
+      .ios-banner-sub {
+        color: rgba(255,255,255,0.55);
+        font-size: 0.72rem;
+      }
+      .ios-banner-cta {
+        background: #ffffff;
+        color: #0d0026;
+        font-weight: 700;
+        font-size: 0.8rem;
+        text-decoration: none;
+        padding: 7px 14px;
+        border-radius: 999px;
+        flex-shrink: 0;
+      }
+      /* Push fixed nav and content down so the banner doesn't cover them */
+      body.ios-banner-shown nav {
+        top: 56px;
+      }
+      body.ios-banner-shown .hero-section {
+        padding-top: 156px;
+      }
+      @keyframes ios-banner-in {
+        from { transform: translateY(-100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+    }
+
     /* Scroll indicator */
     .scroll-hint {
       position: absolute;
@@ -315,6 +393,14 @@
       }
       .iphone-label {
         font-size: 0.8rem;
+      }
+      /* Mobile nav: drop the secondary links (privacy/terms exist in footer
+         and on the banner) so the brand and Get-CTA fit. */
+      nav .nav-links a:not(.nav-cta) {
+        display: none;
+      }
+      .nav-cta {
+        display: none;
       }
     }
 
@@ -536,6 +622,20 @@
   </style>
 </head>
 <body>
+  <!-- Mobile App Store banner -->
+  <div class="ios-banner hidden" id="iosBanner" role="region" aria-label="Get StockGenie for iOS">
+    <button class="ios-banner-dismiss" id="iosBannerDismiss" aria-label="Dismiss">&times;</button>
+    <picture>
+      <source srcset="app-icon.webp" type="image/webp">
+      <img src="app-icon.png" alt="" class="ios-banner-icon">
+    </picture>
+    <div class="ios-banner-text">
+      <div class="ios-banner-title">StockGenie</div>
+      <div class="ios-banner-sub">Your Daily AI Market Whisper</div>
+    </div>
+    <a href="https://apps.apple.com/app/id6754666652" class="ios-banner-cta" target="_blank" rel="noopener">Get</a>
+  </div>
+
   <div class="stars"></div>
 
   <!-- Fixed Nav -->
@@ -735,6 +835,26 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function() {
+      var banner = document.getElementById('iosBanner');
+      var dismissBtn = document.getElementById('iosBannerDismiss');
+      var DISMISS_KEY = 'sg.iosBanner.dismissed';
+      try {
+        if (localStorage.getItem(DISMISS_KEY) !== '1') {
+          banner.classList.remove('hidden');
+          document.body.classList.add('ios-banner-shown');
+        }
+      } catch (e) {
+        banner.classList.remove('hidden');
+        document.body.classList.add('ios-banner-shown');
+      }
+      dismissBtn.addEventListener('click', function() {
+        banner.classList.add('hidden');
+        document.body.classList.remove('ios-banner-shown');
+        try { localStorage.setItem(DISMISS_KEY, '1'); } catch (e) {}
+      });
+    })();
   </script>
 </body>
 </html>
