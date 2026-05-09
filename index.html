@@ -6,6 +6,8 @@
   <title>StockGenie</title>
   <link rel="icon" type="image/png" href="app-icon.png">
   <link rel="apple-touch-icon" href="app-icon.png">
+  <meta name="apple-itunes-app" content="app-id=6754666652">
+  <meta name="description" content="StockGenie — Your Daily AI Market Whisper. Get the iOS app on the App Store.">
   <style>
     :root {
       --glass-bg: rgba(255, 255, 255, 0.08);
@@ -193,7 +195,7 @@
     }
     .cta-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 
+      box-shadow:
         0 12px 40px rgba(0, 0, 0, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
@@ -201,6 +203,30 @@
       width: 18px;
       height: 18px;
       opacity: 0.8;
+    }
+    .cta-btn-primary {
+      background: linear-gradient(135deg, #ffffff 0%, #e8e8ee 100%);
+      color: #0d0026;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.4);
+      box-shadow:
+        0 8px 28px rgba(168, 85, 247, 0.35),
+        inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+    .cta-btn-primary svg {
+      opacity: 1;
+    }
+    .cta-btn-primary:hover {
+      box-shadow:
+        0 12px 40px rgba(168, 85, 247, 0.5),
+        inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .nav-cta {
+      background: linear-gradient(135deg, #ffffff 0%, #e8e8ee 100%);
+      color: #0d0026 !important;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 7px 14px !important;
     }
 
     /* Scroll indicator */
@@ -519,6 +545,7 @@
       <a href="support.html">Support</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms of Service</a>
+      <a href="https://apps.apple.com/app/id6754666652" class="nav-cta" target="_blank" rel="noopener">Get the App</a>
     </div>
   </nav>
 
@@ -537,6 +564,12 @@
     <p class="tagline">Your Daily AI Market Whisper</p>
     
     <div class="cta-row">
+      <a href="https://apps.apple.com/app/id6754666652" class="cta-btn cta-btn-primary" target="_blank" rel="noopener" aria-label="Download StockGenie on the App Store">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.05 13.06c-.03-3.05 2.49-4.51 2.6-4.58-1.42-2.07-3.62-2.36-4.41-2.39-1.88-.19-3.66 1.1-4.61 1.1-.96 0-2.42-1.07-3.98-1.04-2.05.03-3.94 1.19-5 3.02-2.13 3.7-.55 9.18 1.53 12.18 1.02 1.47 2.23 3.12 3.82 3.06 1.54-.06 2.12-.99 3.98-.99 1.85 0 2.38.99 4 .96 1.65-.03 2.7-1.5 3.71-2.97 1.17-1.7 1.65-3.35 1.68-3.44-.04-.02-3.22-1.24-3.32-4.91zM14.2 4.27c.84-1.02 1.41-2.43 1.25-3.85-1.21.05-2.69.81-3.56 1.83-.78.9-1.46 2.34-1.27 3.72 1.35.1 2.74-.69 3.58-1.7z"/>
+        </svg>
+        Download on the App Store
+      </a>
       <a href="terms.html" class="cta-btn glass">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
