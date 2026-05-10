@@ -108,6 +108,83 @@
       background: rgba(255,255,255,0.1);
     }
 
+    /* Hamburger (mobile only) */
+    .nav-burger {
+      display: none;
+      width: 38px;
+      height: 38px;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+    }
+    .nav-burger:hover { background: rgba(255,255,255,0.14); }
+    .nav-burger span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 2px;
+      position: relative;
+    }
+    .nav-burger span::before,
+    .nav-burger span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 2px;
+      transition: transform 0.2s ease, top 0.2s ease;
+    }
+    .nav-burger span::before { top: -6px; }
+    .nav-burger span::after  { top:  6px; }
+    .nav-burger[aria-expanded="true"] span { background: transparent; }
+    .nav-burger[aria-expanded="true"] span::before { top: 0; transform: rotate(45deg); }
+    .nav-burger[aria-expanded="true"] span::after  { top: 0; transform: rotate(-45deg); }
+
+    /* Mobile dropdown menu */
+    .nav-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      padding: 64px 16px 16px;
+      background: rgba(13, 0, 38, 0.96);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transform: translateY(-100%);
+      transition: transform 0.25s ease;
+    }
+    .nav-menu[data-open="true"] {
+      display: block;
+      transform: translateY(0);
+    }
+    .nav-menu a {
+      display: block;
+      padding: 14px 16px;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 1rem;
+      border-radius: 12px;
+      transition: background 0.15s ease;
+    }
+    .nav-menu a:hover { background: rgba(255,255,255,0.08); }
+    .nav-menu a.menu-cta {
+      background: linear-gradient(135deg, #ffffff 0%, #e8e8ee 100%);
+      color: #0d0026;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 12px;
+    }
+
     /* Sections */
     section {
       min-height: 100vh;
@@ -394,14 +471,9 @@
       .iphone-label {
         font-size: 0.8rem;
       }
-      /* Mobile nav: drop the secondary links (privacy/terms exist in footer
-         and on the banner) so the brand and Get-CTA fit. */
-      nav .nav-links a:not(.nav-cta) {
-        display: none;
-      }
-      .nav-cta {
-        display: none;
-      }
+      /* Mobile nav: hide the inline links and show the hamburger menu instead. */
+      nav .nav-links { display: none; }
+      .nav-burger { display: inline-flex; }
     }
 
     @media (max-width: 480px) {
@@ -608,6 +680,47 @@
     .code-number { color: #fbbf24; }
     .code-comment { color: rgba(255,255,255,0.4); }
 
+    /* API endpoint cards */
+    .endpoint-card { padding-top: 24px; }
+    .endpoint-method {
+      display: inline-block;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(168, 85, 247, 0.18);
+      color: #d8b4fe;
+      margin-bottom: 12px;
+    }
+    .endpoint-method.post { background: rgba(74, 222, 128, 0.16); color: #86efac; }
+    .endpoint-path {
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace !important;
+      font-size: 0.95rem !important;
+      word-break: break-all;
+    }
+    .endpoint-meta {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 10px;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+    }
+    .api-base {
+      text-align: center;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 32px;
+    }
+    .api-base code {
+      color: #d8b4fe;
+      background: rgba(168, 85, 247, 0.1);
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
     @media (max-width: 768px) {
       .how-header h2 {
         font-size: 1.8rem;
@@ -642,6 +755,7 @@
   <nav>
     <a href="#" class="nav-brand">StockGenie</a>
     <div class="nav-links">
+      <a href="#api">API</a>
       <a href="support.html">Support</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms of Service</a>
@@ -650,7 +764,17 @@
           <path d="M17.05 13.06c-.03-3.05 2.49-4.51 2.6-4.58-1.42-2.07-3.62-2.36-4.41-2.39-1.88-.19-3.66 1.1-4.61 1.1-.96 0-2.42-1.07-3.98-1.04-2.05.03-3.94 1.19-5 3.02-2.13 3.7-.55 9.18 1.53 12.18 1.02 1.47 2.23 3.12 3.82 3.06 1.54-.06 2.12-.99 3.98-.99 1.85 0 2.38.99 4 .96 1.65-.03 2.7-1.5 3.71-2.97 1.17-1.7 1.65-3.35 1.68-3.44-.04-.02-3.22-1.24-3.32-4.91zM14.2 4.27c.84-1.02 1.41-2.43 1.25-3.85-1.21.05-2.69.81-3.56 1.83-.78.9-1.46 2.34-1.27 3.72 1.35.1 2.74-.69 3.58-1.7z"/>
         </svg>Get for iOS</a>
     </div>
+    <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu"><span></span></button>
   </nav>
+
+  <!-- Mobile dropdown menu -->
+  <div class="nav-menu" id="navMenu" data-open="false">
+    <a href="#api" data-menu-close>API</a>
+    <a href="support.html">Support</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="https://apps.apple.com/app/id6754515450" class="menu-cta" target="_blank" rel="noopener">Get for iOS</a>
+  </div>
 
   <!-- Hero -->
   <section class="hero-section">
@@ -829,6 +953,89 @@
   </section>
 
 
+  <!-- API Section -->
+  <section class="how-it-works" id="api">
+    <div class="how-container">
+      <div class="how-header">
+        <h2>Build with the StockGenie API</h2>
+        <p>The same engine that powers the app, available as a clean JSON API. Free tier gives you today's pick. Premium unlocks history and the full ranked list.</p>
+      </div>
+
+      <div class="api-base">Base URL <code>https://api.stockgenie.app</code></div>
+
+      <div class="code-section">
+        <div class="code-title">Quickstart — today's pick</div>
+        <div class="code-block"><pre><code><span class="code-comment"># One stock per day, no auth, rate-limited per IP</span>
+curl https://api.stockgenie.app/api/daily-stock
+
+<span class="code-comment"># =&gt;</span>
+{
+  <span class="code-string">"date"</span>: <span class="code-string">"2026-05-09"</span>,
+  <span class="code-string">"ticker"</span>: <span class="code-string">"NVDA"</span>,
+  <span class="code-string">"confidence"</span>: <span class="code-number">0.87</span>,
+  <span class="code-string">"reasons"</span>: [
+    <span class="code-string">"Strong premarket volume up 3.2%"</span>,
+    <span class="code-string">"Positive sentiment from recent AI chip demand"</span>,
+    <span class="code-string">"Analyst upgrades following strong guidance"</span>
+  ],
+  <span class="code-string">"articles"</span>: [
+    {
+      <span class="code-string">"title"</span>: <span class="code-string">"Nvidia's AI Chips Continue to Drive Market Leadership"</span>,
+      <span class="code-string">"url"</span>: <span class="code-string">"https://finance.yahoo.com/news/..."</span>,
+      <span class="code-string">"source"</span>: <span class="code-string">"Yahoo Finance"</span>
+    }
+  ]
+}</code></pre></div>
+      </div>
+
+      <div class="how-steps">
+        <div class="step-card endpoint-card">
+          <span class="endpoint-method">GET</span>
+          <h3 class="step-title endpoint-path">/api/daily-stock</h3>
+          <p class="step-desc">Today's AI-selected stock pick with confidence, reasons, and source articles.</p>
+          <div class="endpoint-meta">Free · 1 req/day per IP</div>
+        </div>
+        <div class="step-card endpoint-card">
+          <span class="endpoint-method">GET</span>
+          <h3 class="step-title endpoint-path">/api/historical-stocks</h3>
+          <p class="step-desc">Past 7 days of picks. Pass <code style="color:#86efac;">Authorization: Bearer …</code> with a Premium token.</p>
+          <div class="endpoint-meta">Premium · Bearer token</div>
+        </div>
+        <div class="step-card endpoint-card">
+          <span class="endpoint-method">GET</span>
+          <h3 class="step-title endpoint-path">/api/mcp-schema</h3>
+          <p class="step-desc">Model Context Protocol tool schema — drop our picker straight into your MCP-aware agent.</p>
+          <div class="endpoint-meta">Free · No rate limit</div>
+        </div>
+        <div class="step-card endpoint-card">
+          <span class="endpoint-method">GET</span>
+          <h3 class="step-title endpoint-path">/api/health</h3>
+          <p class="step-desc">Liveness probe. Returns service name, version, and timestamp.</p>
+          <div class="endpoint-meta">Free · No rate limit</div>
+        </div>
+      </div>
+
+      <div class="code-section">
+        <div class="code-title">Premium request — last 7 days</div>
+        <div class="code-block"><pre><code>curl <span class="code-string">"https://api.stockgenie.app/api/historical-stocks"</span> \
+  -H <span class="code-string">"Authorization: Bearer YOUR_PREMIUM_TOKEN"</span></code></pre></div>
+      </div>
+
+      <div class="code-section">
+        <div class="code-title">Use it from Swift</div>
+        <div class="code-block"><pre><code><span class="code-keyword">struct</span> DailyStock: Decodable {
+  <span class="code-keyword">let</span> ticker: String
+  <span class="code-keyword">let</span> confidence: Double
+  <span class="code-keyword">let</span> reasons: [String]
+}
+
+<span class="code-keyword">let</span> url = URL(string: <span class="code-string">"https://api.stockgenie.app/api/daily-stock"</span>)!
+<span class="code-keyword">let</span> (data, _) = <span class="code-keyword">try await</span> URLSession.shared.data(from: url)
+<span class="code-keyword">let</span> pick = <span class="code-keyword">try</span> JSONDecoder().decode(DailyStock.<span class="code-keyword">self</span>, from: data)</code></pre></div>
+      </div>
+    </div>
+  </section>
+
   <footer>
     © <span id="year"></span> <a href="https://fromamerica-llc.com/" target="_blank" rel="noopener noreferrer">FROM AMERICA LLC</a>. All rights reserved.
   </footer>
@@ -853,6 +1060,25 @@
         banner.classList.add('hidden');
         document.body.classList.remove('ios-banner-shown');
         try { localStorage.setItem(DISMISS_KEY, '1'); } catch (e) {}
+      });
+    })();
+
+    (function() {
+      var burger = document.getElementById('navBurger');
+      var menu = document.getElementById('navMenu');
+      function setOpen(open) {
+        menu.dataset.open = open ? 'true' : 'false';
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      }
+      burger.addEventListener('click', function() {
+        setOpen(menu.dataset.open !== 'true');
+      });
+      menu.addEventListener('click', function(e) {
+        if (e.target.tagName === 'A') setOpen(false);
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.dataset.open === 'true') setOpen(false);
       });
     })();
   </script>
