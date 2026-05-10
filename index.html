@@ -151,18 +151,19 @@
     .nav-menu {
       display: none;
       position: fixed;
-      top: 0;
+      top: 60px;
       left: 0;
       right: 0;
       z-index: 99;
-      padding: 64px 16px 16px;
+      padding: 12px 16px 20px;
       background: rgba(13, 0, 38, 0.96);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
       border-bottom: 1px solid rgba(255,255,255,0.1);
-      transform: translateY(-100%);
+      transform: translateY(-110%);
       transition: transform 0.25s ease;
     }
+    body.ios-banner-shown .nav-menu { top: 116px; }
     .nav-menu[data-open="true"] {
       display: block;
       transform: translateY(0);
