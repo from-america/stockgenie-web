@@ -1,6 +1,42 @@
-const DASHBOARD_API_URL = 'https://api.stockgenie.app/api/what-if-invested?amount=1000&months=6&benchmark=SPY';
-const DEFAULT_INITIAL_AMOUNT = 1000;
+const DASHBOARD_BASE_URL = 'https://api.stockgenie.app/api/what-if-invested';
+const DEFAULT_CONTRIBUTION_AMOUNT = 1;
+const DEFAULT_BASKET_SIZE = 3;
+const DEFAULT_WEIGHTING_MODE = 'confidence';
 const FETCH_TIMEOUT_MS = 4500;
+
+function buildDashboardApiUrl({
+  mode = 'dca',
+  strategyType = 'basket',
+  weighting = 'equal',
+  basketSize = 5,
+  contribution = 1,
+  startDate = '2025-12-02',
+  benchmark = 'SPY',
+} = {}) {
+  const params = new URLSearchParams({
+    mode,
+    strategyType,
+    weighting,
+    basketSize: String(basketSize),
+    contribution: String(contribution),
+    startDate,
+    benchmark,
+  });
+
+  return `${DASHBOARD_BASE_URL}?${params.toString()}`;
+}
+
+const DASHBOARD_API_URL = buildDashboardApiUrl({
+  strategyType: 'basket',
+  weighting: 'equal',
+  basketSize: 5,
+});
+
+const COMPARISON_API_URL = buildDashboardApiUrl({
+  strategyType: 'single',
+  weighting: 'equal',
+  basketSize: 1,
+});
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -80,6 +116,21 @@ function formatGeneratedAt(dateStr) {
   return generatedFormatter.format(date);
 }
 
+function buildStrategyLabel(strategyType, weightingMode, basketSize) {
+  if (String(strategyType || 'single').toLowerCase() === 'basket') {
+    const size = Number.isFinite(Number(basketSize)) && Number(basketSize) > 0
+      ? Math.max(1, Math.floor(Number(basketSize)))
+      : DEFAULT_BASKET_SIZE;
+    const normalizedWeightingMode = String(weightingMode || DEFAULT_WEIGHTING_MODE).toLowerCase();
+    const prefix = normalizedWeightingMode === 'confidence'
+      ? 'Confidence-weighted '
+      : 'Equal-weight ';
+    return `${prefix}top ${size} basket`;
+  }
+
+  return 'Daily pick';
+}
+
 function buildSampleDashboard() {
   const pointCount = 27;
   const now = new Date();
@@ -87,8 +138,8 @@ function buildSampleDashboard() {
   const dates = [];
   const strategyPoints = [];
   const benchmarkPoints = [];
-  let strategyValue = DEFAULT_INITIAL_AMOUNT;
-  let benchmarkValue = DEFAULT_INITIAL_AMOUNT;
+  let strategyValue = DEFAULT_CONTRIBUTION_AMOUNT;
+  let benchmarkValue = DEFAULT_CONTRIBUTION_AMOUNT;
 
   for (let index = pointCount - 1; index >= 0; index -= 1) {
     const step = pointCount - 1 - index;
@@ -97,10 +148,10 @@ function buildSampleDashboard() {
     const dateStr = date.toISOString().split('T')[0];
 
     if (step > 0) {
-      const strategyGrowth = 0.008 + Math.sin(step / 3.1) * 0.007 + (step % 6 === 0 ? 0.011 : 0.001);
-      const benchmarkGrowth = 0.0035 + Math.cos(step / 4.2) * 0.002;
-      strategyValue *= 1 + strategyGrowth;
-      benchmarkValue *= 1 + benchmarkGrowth;
+      const strategyGrowth = 0.0038 + Math.sin(step / 2.4) * 0.0026 + Math.cos(step / 5.2) * 0.0013;
+      const benchmarkGrowth = 0.0002 + Math.cos(step / 4.1) * 0.0009 - Math.sin(step / 6.3) * 0.0003;
+      strategyValue = strategyValue * (1 + strategyGrowth) + DEFAULT_CONTRIBUTION_AMOUNT;
+      benchmarkValue = benchmarkValue * (1 + benchmarkGrowth) + DEFAULT_CONTRIBUTION_AMOUNT;
     }
 
     dates.push(dateStr);
@@ -108,17 +159,29 @@ function buildSampleDashboard() {
     benchmarkPoints.push({ date: dateStr, value: benchmarkValue });
   }
 
+  const strategyLabel = buildStrategyLabel('basket', 'equal', 5);
+
   return {
     dates,
     strategy: { points: strategyPoints },
     benchmark: { points: benchmarkPoints },
     summary: {
-      initialAmount: DEFAULT_INITIAL_AMOUNT,
+      initialAmount: DEFAULT_CONTRIBUTION_AMOUNT,
+      contributionAmount: DEFAULT_CONTRIBUTION_AMOUNT,
+      totalContributed: DEFAULT_CONTRIBUTION_AMOUNT * dates.length,
+      comparisonBaseAmount: DEFAULT_CONTRIBUTION_AMOUNT * dates.length,
+      strategyMode: 'dca',
+      strategyType: 'basket',
+      weightingMode: 'equal',
+      basketSize: 5,
+      strategyLabel,
       strategyEndValue: strategyValue,
       benchmarkEndValue: benchmarkValue,
-      strategyReturnPct: ((strategyValue - DEFAULT_INITIAL_AMOUNT) / DEFAULT_INITIAL_AMOUNT) * 100,
-      benchmarkReturnPct: ((benchmarkValue - DEFAULT_INITIAL_AMOUNT) / DEFAULT_INITIAL_AMOUNT) * 100,
+      strategyReturnPct: ((strategyValue - (DEFAULT_CONTRIBUTION_AMOUNT * dates.length)) / (DEFAULT_CONTRIBUTION_AMOUNT * dates.length)) * 100,
+      benchmarkReturnPct: ((benchmarkValue - (DEFAULT_CONTRIBUTION_AMOUNT * dates.length)) / (DEFAULT_CONTRIBUTION_AMOUNT * dates.length)) * 100,
       alpha: strategyValue - benchmarkValue,
+      strategyGain: strategyValue - (DEFAULT_CONTRIBUTION_AMOUNT * dates.length),
+      benchmarkGain: benchmarkValue - (DEFAULT_CONTRIBUTION_AMOUNT * dates.length),
     },
     meta: {
       generatedAt: new Date().toISOString(),
@@ -126,9 +189,15 @@ function buildSampleDashboard() {
       endDate: dates[dates.length - 1],
       windowMonths: 6,
       benchmarkTicker: 'SPY',
-      initialAmount: DEFAULT_INITIAL_AMOUNT,
+      initialAmount: DEFAULT_CONTRIBUTION_AMOUNT,
+      contributionAmount: DEFAULT_CONTRIBUTION_AMOUNT,
+      strategyMode: 'dca',
+      strategyType: 'basket',
+      weightingMode: 'equal',
+      basketSize: 5,
+      strategyLabel,
       tradingDays: dates.length,
-      uniqueTickers: 1,
+      uniqueTickers: 5,
       source: 'demo-fallback',
     },
   };
@@ -158,13 +227,35 @@ function normalizeDashboardPayload(payload) {
   }
 
   const summary = payload?.summary || {};
+  const meta = payload?.meta || {};
+  const strategyType = typeof summary.strategyType === 'string'
+    ? summary.strategyType
+    : (typeof meta.strategyType === 'string' ? meta.strategyType : 'single');
+  const weightingMode = strategyType === 'basket'
+    ? (typeof summary.weightingMode === 'string'
+      ? summary.weightingMode
+      : (typeof meta.weightingMode === 'string' ? meta.weightingMode : DEFAULT_WEIGHTING_MODE))
+    : 'equal';
+  const basketSizeValue = toFiniteNumber(summary.basketSize ?? meta.basketSize, strategyType === 'basket' ? DEFAULT_BASKET_SIZE : 1);
+  const basketSize = Math.max(1, Math.floor(Number.isFinite(basketSizeValue) ? basketSizeValue : (strategyType === 'basket' ? DEFAULT_BASKET_SIZE : 1)));
+  const strategyLabel = typeof summary.strategyLabel === 'string'
+    ? summary.strategyLabel
+    : (typeof meta.strategyLabel === 'string'
+      ? meta.strategyLabel
+      : buildStrategyLabel(strategyType, weightingMode, basketSize));
   const normalizedSummary = {
-    initialAmount: toFiniteNumber(summary.initialAmount, DEFAULT_INITIAL_AMOUNT),
+    initialAmount: toFiniteNumber(summary.initialAmount, DEFAULT_CONTRIBUTION_AMOUNT),
     strategyEndValue: toFiniteNumber(summary.strategyEndValue, null),
     benchmarkEndValue: toFiniteNumber(summary.benchmarkEndValue, null),
     strategyReturnPct: toFiniteNumber(summary.strategyReturnPct, null),
     benchmarkReturnPct: toFiniteNumber(summary.benchmarkReturnPct, null),
     alpha: toFiniteNumber(summary.alpha, null),
+    totalContributed: toFiniteNumber(summary.totalContributed, null),
+    strategyMode: typeof summary.strategyMode === 'string' ? summary.strategyMode : 'lump_sum',
+    strategyType,
+    weightingMode,
+    basketSize,
+    strategyLabel,
   };
 
   if (
@@ -186,12 +277,12 @@ function normalizeDashboardPayload(payload) {
   };
 }
 
-async function fetchDashboardPayload() {
+async function fetchDashboardPayload(url = DASHBOARD_API_URL) {
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
   try {
-    const response = await fetch(DASHBOARD_API_URL, {
+    const response = await fetch(url, {
       method: 'GET',
       mode: 'cors',
       cache: 'no-store',
@@ -210,6 +301,23 @@ async function fetchDashboardPayload() {
   } finally {
     window.clearTimeout(timeout);
   }
+}
+
+async function fetchDashboardData() {
+  const [primaryResult, comparisonResult] = await Promise.allSettled([
+    fetchDashboardPayload(DASHBOARD_API_URL),
+    fetchDashboardPayload(COMPARISON_API_URL),
+  ]);
+
+  if (primaryResult.status !== 'fulfilled') {
+    throw primaryResult.reason;
+  }
+
+  return {
+    payload: primaryResult.value.payload,
+    source: primaryResult.value.source,
+    comparisonPayload: comparisonResult.status === 'fulfilled' ? comparisonResult.value.payload : null,
+  };
 }
 
 function buildAxisTicks(minValue, maxValue, tickCount) {
@@ -240,7 +348,7 @@ function buildSvgMarkup(payload) {
 
   const width = 1000;
   const height = 420;
-  const padding = { top: 28, right: 32, bottom: 56, left: 74 };
+  const padding = { top: 28, right: 56, bottom: 56, left: 74 };
   const plotWidth = width - padding.left - padding.right;
   const plotHeight = height - padding.top - padding.bottom;
 
@@ -288,7 +396,9 @@ function buildSvgMarkup(payload) {
   const latestStrategy = strategyPoints[pointCount - 1];
   const latestBenchmark = benchmarkPoints[pointCount - 1];
   const latestDate = dates[pointCount - 1];
-  const chartLabel = `Six-month comparison from ${dates[0]} to ${latestDate}`;
+  const strategyLabel = payload.summary?.strategyLabel || payload.meta?.strategyLabel || 'StockGenie basket';
+  const benchmarkLabel = payload.meta?.benchmarkTicker || 'benchmark';
+  const chartLabel = `${strategyLabel} versus ${benchmarkLabel} from ${dates[0]} to ${latestDate}`;
 
   return `
     <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeXml(chartLabel)}" preserveAspectRatio="none">
@@ -314,7 +424,7 @@ function buildSvgMarkup(payload) {
           .map(
             (tick) => `
               <line x1="${padding.left}" y1="${yForValue(tick.value).toFixed(1)}" x2="${width - padding.right}" y2="${yForValue(tick.value).toFixed(1)}" stroke="rgba(255,255,255,0.08)" stroke-width="1"></line>
-              <text x="${padding.left - 12}" y="${(yForValue(tick.value) + 4).toFixed(1)}" text-anchor="end" fill="rgba(255,255,255,0.45)" font-size="12" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif">${escapeXml(formatMoney(tick.value))}</text>
+              <text x="${padding.left - 12}" y="${(yForValue(tick.value) + 4).toFixed(1)}" text-anchor="end" fill="rgba(255,255,255,0.52)" font-size="12" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif">${escapeXml(formatMoney(tick.value))}</text>
             `
           )
           .join('')}
@@ -325,7 +435,7 @@ function buildSvgMarkup(payload) {
           .map(
             (index) => `
               <line x1="${xForIndex(index).toFixed(1)}" y1="${padding.top}" x2="${xForIndex(index).toFixed(1)}" y2="${baseY.toFixed(1)}" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
-              <text x="${xForIndex(index).toFixed(1)}" y="${height - 20}" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="12" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif">${escapeXml(formatDateLabel(dates[index]))}</text>
+              <text x="${xForIndex(index).toFixed(1)}" y="${height - 20}" text-anchor="middle" fill="rgba(255,255,255,0.58)" font-size="12" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif">${escapeXml(formatDateLabel(dates[index]))}</text>
             `
           )
           .join('')}
@@ -335,14 +445,14 @@ function buildSvgMarkup(payload) {
       <path d="${strategyPath}" fill="none" stroke="url(#strategyStroke)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"></path>
       <circle cx="${xForIndex(pointCount - 1).toFixed(1)}" cy="${yForValue(latestBenchmark.value).toFixed(1)}" r="5.5" fill="rgba(255,255,255,0.95)" stroke="rgba(255,255,255,0.4)" stroke-width="2"></circle>
       <circle cx="${xForIndex(pointCount - 1).toFixed(1)}" cy="${yForValue(latestStrategy.value).toFixed(1)}" r="6.5" fill="#ffffff" stroke="url(#strategyStroke)" stroke-width="3"></circle>
-      <text x="${(xForIndex(pointCount - 1) + 14).toFixed(1)}" y="${(yForValue(latestStrategy.value) - 12).toFixed(1)}" fill="rgba(255,255,255,0.82)" font-size="13" font-weight="600" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif">${escapeXml(formatMoney(latestStrategy.value))}</text>
-      <text x="${(xForIndex(pointCount - 1) + 14).toFixed(1)}" y="${(yForValue(latestBenchmark.value) + 20).toFixed(1)}" fill="rgba(255,255,255,0.62)" font-size="12" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif">${escapeXml(formatMoney(latestBenchmark.value))}</text>
     </svg>
   `;
 }
 
-function renderDashboard(root, payload, source) {
+function renderDashboard(root, payload, source, comparisonPayload = null) {
   const statusEl = root.querySelector('[data-role="dashboard-status"]');
+  const noteEl = root.querySelector('[data-role="dashboard-note"]');
+  const kickerEl = root.querySelector('[data-role="dashboard-kicker"]');
   const strategyValueEl = root.querySelector('[data-role="strategy-value"]');
   const benchmarkValueEl = root.querySelector('[data-role="benchmark-value"]');
   const alphaValueEl = root.querySelector('[data-role="alpha-value"]');
@@ -357,13 +467,54 @@ function renderDashboard(root, payload, source) {
 
   const summary = payload.summary;
   const meta = payload.meta || {};
+  const strategyMode = String(meta.strategyMode || summary.strategyMode || 'lump_sum').toLowerCase();
+  const strategyType = String(summary.strategyType || meta.strategyType || 'single').toLowerCase();
+  const weightingMode = String(summary.weightingMode || meta.weightingMode || 'equal').toLowerCase();
+  const basketSize = Math.max(1, Math.floor(toFiniteNumber(summary.basketSize ?? meta.basketSize, strategyType === 'basket' ? DEFAULT_BASKET_SIZE : 1)));
+  const strategyLabel = summary.strategyLabel || meta.strategyLabel || buildStrategyLabel(strategyType, weightingMode, basketSize);
   const sourceLabel = source === 'live' ? 'Live data from api.stockgenie.app' : 'Demo fallback loaded locally';
   const updatedLabel = meta.generatedAt ? `Updated ${formatGeneratedAt(meta.generatedAt)}` : '';
   const tradingDaysLabel = meta.tradingDays ? `${meta.tradingDays} trading days` : '';
+  const contributedLabel = toFiniteNumber(summary.totalContributed, null) !== null
+    ? `${formatMoney(summary.totalContributed)} contributed`
+    : '';
+  const basketLabel = strategyType === 'basket'
+    ? `${basketSize} picks per day${weightingMode === 'confidence' ? ', confidence-weighted' : ', equal-weight'}`
+    : 'Single pick';
   const extraLabel = [updatedLabel, tradingDaysLabel].filter(Boolean).join(' - ');
 
   if (statusEl) {
-    statusEl.textContent = extraLabel ? `${sourceLabel} - ${extraLabel}` : sourceLabel;
+    const labels = [sourceLabel, extraLabel, contributedLabel, basketLabel].filter(Boolean);
+    statusEl.textContent = labels.join(' - ');
+  }
+
+  if (kickerEl) {
+    kickerEl.textContent = strategyLabel;
+  }
+
+  if (noteEl) {
+    if (strategyMode === 'dca' && strategyType === 'basket') {
+      const totalContributed = toFiniteNumber(summary.totalContributed, null);
+      const totalText = totalContributed !== null ? `, ${formatMoney(totalContributed)} total contributed` : '';
+      const comparisonEndValue = toFiniteNumber(comparisonPayload?.summary?.strategyEndValue, null);
+      const comparisonLabelRaw = comparisonPayload?.summary?.strategyLabel || comparisonPayload?.meta?.strategyLabel || 'free daily pick';
+      const comparisonLabel = String(comparisonLabelRaw).toLowerCase() === 'daily pick'
+        ? 'the free daily pick'
+        : comparisonLabelRaw;
+      const comparisonDelta = comparisonEndValue !== null ? summary.strategyEndValue - comparisonEndValue : null;
+      const comparisonText = comparisonDelta !== null
+        ? ` Compared with ${comparisonLabel}, this basket is ${comparisonDelta >= 0 ? 'ahead' : 'behind'} by ${formatMoney(Math.abs(comparisonDelta))} over the same period.`
+        : '';
+      noteEl.textContent = `This view uses StockGenie's ${strategyLabel}, investing $1 per trading day since Dec 2, 2025${totalText}, and compares it with SPY using the same cash flow.${comparisonText} It is based on actual open-to-open moves, not a promise or forecast.`;
+    } else if (strategyMode === 'dca') {
+      const contributionAmount = toFiniteNumber(meta.contributionAmount || summary.initialAmount, 1);
+      const totalContributed = toFiniteNumber(summary.totalContributed, null);
+      const contributionText = contributionAmount ? `${formatMoney(contributionAmount)} per trading day` : 'daily contributions';
+      const totalText = totalContributed !== null ? `, ${formatMoney(totalContributed)} total contributed` : '';
+      noteEl.textContent = `This view assumes ${contributionText} since Dec 2, 2025${totalText}. It is here for context, not investment advice.`;
+    } else {
+      noteEl.textContent = 'These numbers are hypothetical and use open-to-open price moves. They are here for context, not investment advice.';
+    }
   }
 
   strategyValueEl.textContent = formatMoney(summary.strategyEndValue);
@@ -371,7 +522,7 @@ function renderDashboard(root, payload, source) {
   alphaValueEl.textContent = formatSignedMoney(summary.alpha);
   returnValueEl.textContent = formatPercent(summary.strategyReturnPct);
   rangeEl.textContent = `Range: ${formatRangeLabel(meta.startDate || payload.dates[0], meta.endDate || payload.dates[payload.dates.length - 1])}`;
-  sourceEl.textContent = `Source: ${source === 'live' ? 'api.stockgenie.app' : 'demo fallback'}${tradingDaysLabel ? ` - ${tradingDaysLabel}` : ''}`;
+  sourceEl.textContent = `Source: ${source === 'live' ? 'api.stockgenie.app' : 'demo fallback'}${tradingDaysLabel ? ` - ${tradingDaysLabel}` : ''}${contributedLabel ? ` - ${contributedLabel}` : ''}${basketLabel ? ` - ${basketLabel}` : ''}`;
   chartEl.innerHTML = buildSvgMarkup(payload);
 }
 
@@ -388,18 +539,20 @@ async function initDashboard() {
 
   let payload;
   let source = 'live';
+  let comparisonPayload = null;
 
   try {
-    const result = await fetchDashboardPayload();
+    const result = await fetchDashboardData();
     payload = result.payload;
     source = result.source;
+    comparisonPayload = result.comparisonPayload;
   } catch (error) {
     console.warn('[StockGenie] Falling back to sample dashboard data:', error);
     payload = buildSampleDashboard();
     source = 'demo';
   }
 
-  renderDashboard(root, payload, source);
+  renderDashboard(root, payload, source, comparisonPayload);
 }
 
 if (document.readyState === 'loading') {

@@ -477,6 +477,37 @@
       font-weight: 600;
       color: rgba(255,255,255,0.9);
     }
+    .process-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.32);
+      border: 1px solid rgba(168, 85, 247, 0.16);
+    }
+    .process-copy {
+      margin: 0;
+      color: rgba(255,255,255,0.78);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      max-width: 62ch;
+    }
+    .process-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .process-chips span {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.76);
+      font-size: 0.82rem;
+    }
     .code-block {
       background: rgba(0,0,0,0.4);
       border: 1px solid rgba(168, 85, 247, 0.2);
@@ -823,8 +854,8 @@
       <a href="#dashboard">Dashboard</a>
       <a href="#api">API</a>
       <a href="support.html">Support</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
       <a href="https://apps.apple.com/app/id6754515450" class="nav-cta" target="_blank" rel="noopener" aria-label="Get StockGenie for iOS">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:14px;height:14px;vertical-align:-2px;margin-right:6px;">
           <path d="M17.05 13.06c-.03-3.05 2.49-4.51 2.6-4.58-1.42-2.07-3.62-2.36-4.41-2.39-1.88-.19-3.66 1.1-4.61 1.1-.96 0-2.42-1.07-3.98-1.04-2.05.03-3.94 1.19-5 3.02-2.13 3.7-.55 9.18 1.53 12.18 1.02 1.47 2.23 3.12 3.82 3.06 1.54-.06 2.12-.99 3.98-.99 1.85 0 2.38.99 4 .96 1.65-.03 2.7-1.5 3.71-2.97 1.17-1.7 1.65-3.35 1.68-3.44-.04-.02-3.22-1.24-3.32-4.91zM14.2 4.27c.84-1.02 1.41-2.43 1.25-3.85-1.21.05-2.69.81-3.56 1.83-.78.9-1.46 2.34-1.27 3.72 1.35.1 2.74-.69 3.58-1.7z"/>
@@ -838,8 +869,8 @@
     <a href="#dashboard" data-menu-close>Dashboard</a>
     <a href="#api" data-menu-close>API</a>
     <a href="support.html">Support</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms of Service</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
     <a href="https://apps.apple.com/app/id6754515450" class="menu-cta" target="_blank" rel="noopener">Get for iOS</a>
   </div>
 
@@ -855,7 +886,7 @@
       </picture>
     </div>
     
-    <p class="tagline">Your Daily AI Market Whisper</p>
+    <p class="tagline">Daily picks with context.</p>
     
     <div class="cta-row">
       <a href="https://apps.apple.com/app/id6754515450" class="cta-btn cta-btn-primary" target="_blank" rel="noopener" aria-label="Download StockGenie on the App Store">
@@ -875,13 +906,13 @@
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
           <path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/>
         </svg>
-        Terms of Service
+        Terms
       </a>
       <a href="privacy.html" class="cta-btn glass">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
         </svg>
-        Privacy Policy
+        Privacy
       </a>
     </div>
     
@@ -910,7 +941,7 @@
         </div>
         <div class="screenshot-content">
           <h2>Daily Market Analysis</h2>
-          <p>Every weekday morning, our advanced AI analyzes thousands of data points to identify stocks with the highest potential for growth. Get actionable insights delivered straight to your device before the market opens.</p>
+          <p>Each weekday, StockGenie looks at market news, price action, and recent context, then surfaces the pick that ranks highest. You get the result before the open without having to sort through everything yourself.</p>
         </div>
       </div>
 
@@ -929,8 +960,8 @@
           <div class="iphone-label">Daily Pick</div>
         </div>
         <div class="screenshot-content">
-          <h2>Your Free Daily Pick</h2>
-          <p>Get instant access to our top AI-selected stock every trading day, completely free. No required subscriptions, no hidden fees. Just pure market intelligence delivered with precision and clarity.</p>
+          <h2>One Daily Pick</h2>
+          <p>You get one pick each trading day, plus a short explanation of why it ranked well.</p>
         </div>
       </div>
 
@@ -949,8 +980,8 @@
           <div class="iphone-label">Premium Features</div>
         </div>
         <div class="screenshot-content">
-          <h2>Premium Picks</h2>
-          <p>Unlock the full power of StockGenie. Get the top five picks on each trading day, track AI performance over the last 7 days, and make smarter investment decisions.</p>
+          <h2>Premium Adds More Context</h2>
+          <p>Premium shows the full ranked list, the recent history, and morning alerts so you can compare more than just the public view.</p>
         </div>
       </div>
     </div>
@@ -961,42 +992,42 @@
     <div class="dashboard-shell glass">
       <div class="dashboard-copy">
         <span class="dashboard-eyebrow">Public performance dashboard</span>
-        <h2 class="dashboard-title">What if you invested $1,000 in the free daily pick?</h2>
-        <p class="dashboard-subtitle">A six-month public curve compares the free daily pick against SPY. Premium-only features stay locked, so the homepage keeps the public story clean.</p>
-        <div class="dashboard-status" data-role="dashboard-status">Loading six-month performance...</div>
+        <h2 class="dashboard-title">What if you invested $1 every trading day in StockGenie's equal-weight top 5 basket since Dec 2, 2025?</h2>
+        <p class="dashboard-subtitle">This view compares StockGenie's equal-weight top 5 basket against SPY using the same cash flow. It also shows how the basket compares with the free daily pick.</p>
+        <div class="dashboard-status" data-role="dashboard-status">Loading equal-weight top 5 basket performance...</div>
         <div class="dashboard-metrics">
           <div class="metric-card">
-            <span class="metric-label">Strategy value</span>
+            <span class="metric-label">StockGenie basket value</span>
             <strong data-role="strategy-value">$1,000</strong>
-            <small>Hypothetical value from the free daily pick</small>
+            <small>What $1 a day in the basket grew to</small>
           </div>
           <div class="metric-card">
-            <span class="metric-label">Benchmark value</span>
+            <span class="metric-label">SPY value</span>
             <strong data-role="benchmark-value">$1,000</strong>
-            <small>The same capital invested in SPY</small>
+            <small>What the same daily cash flow became in SPY</small>
           </div>
           <div class="metric-card">
-            <span class="metric-label">Alpha</span>
+            <span class="metric-label">Lead vs SPY</span>
             <strong data-role="alpha-value">$0</strong>
-            <small>Absolute outperformance versus the benchmark</small>
+            <small>Difference versus SPY</small>
           </div>
           <div class="metric-card">
             <span class="metric-label">Strategy return</span>
             <strong data-role="return-value">0.0%</strong>
-            <small>Open-to-open change over the selected window</small>
+            <small>Open-to-open change across the period</small>
           </div>
         </div>
-        <p class="dashboard-note">Numbers are hypothetical, use open-to-open price moves, and are shown for education rather than investment advice.</p>
+        <p class="dashboard-note" data-role="dashboard-note">These numbers assume $1 invested on each trading day in StockGenie's equal-weight top 5 basket since Dec 2, 2025. They are here for context, not investment advice.</p>
       </div>
 
       <div class="chart-panel">
         <div class="chart-panel-head">
           <div>
-            <span class="chart-kicker">Six-Month Curve</span>
-            <h3>Free pick vs SPY</h3>
+            <span class="chart-kicker" data-role="dashboard-kicker">Equal-weight top 5</span>
+            <h3>StockGenie basket vs SPY</h3>
           </div>
           <div class="chart-legend">
-            <span class="legend-item"><span class="legend-swatch strategy"></span>Free pick</span>
+            <span class="legend-item"><span class="legend-swatch strategy"></span>StockGenie basket</span>
             <span class="legend-item"><span class="legend-swatch benchmark"></span>SPY</span>
           </div>
         </div>
@@ -1009,28 +1040,28 @@
     </div>
 
     <div class="premium-cta">
-      <p>Premium is intentionally gated in the app. The website keeps the public dashboard open while the full ranked list, historical tracking, and alerts stay locked.</p>
+      <p>The website shows the public dashboard. In the app, Premium unlocks the full ranked list, historical tracking, and alerts.</p>
       <a href="support.html#premium" class="cta-btn glass">See Premium Details</a>
     </div>
 
     <div class="premium-grid">
       <div class="premium-card locked">
         <span class="lock-badge">Locked • Premium</span>
-        <h3>Top 5 Picks</h3>
-        <p>Unlock the full ranked list every trading day instead of only the free #1 pick.</p>
-        <span class="premium-pill">Shows inside the app</span>
+        <h3>Full Ranked List</h3>
+        <p>See every ranked pick each trading day, not just the public view.</p>
+        <span class="premium-pill">Shown in the app</span>
       </div>
       <div class="premium-card locked">
         <span class="lock-badge">Locked • Premium</span>
         <h3>Historical Performance</h3>
-        <p>Track how every pick would have performed over time, with the latest 7 days surfaced first.</p>
+        <p>Look back at the past seven days and see how each pick has moved.</p>
         <span class="premium-pill">Subscription required</span>
       </div>
       <div class="premium-card locked">
         <span class="lock-badge">Locked • Premium</span>
         <h3>Morning Alerts</h3>
-        <p>Get notified before the open so the day's picks are ready when the market starts moving.</p>
-        <span class="premium-pill">Delivered at market open</span>
+        <p>Get notified before the open so you know what changed before the market starts moving.</p>
+        <span class="premium-pill">Sent before the open</span>
       </div>
     </div>
   </section>
@@ -1039,78 +1070,59 @@
   <section class="how-it-works">
     <div class="how-container">
       <div class="how-header">
-        <h2>How Does It Work?</h2>
-        <p>Every trading day, our AI-powered system processes vast amounts of market data from multiple sources and distills it into a single, actionable recommendation.</p>
+        <h2>How It Works</h2>
+        <p>Every trading day, StockGenie reads market news and price action, then ranks the names that look strongest.</p>
       </div>
 
       <div class="how-steps">
         <div class="step-card">
           <div class="step-number">1</div>
-          <h3 class="step-title">Data Sources</h3>
-          <p class="step-desc">We aggregate market signals from financial newspapers, analyst reports, and financial article feeds across multiple providers.</p>
+          <h3 class="step-title">What We Read</h3>
+          <p class="step-desc">We pull in market news, analyst coverage, and price data from trusted providers.</p>
         </div>
         <div class="step-card">
           <div class="step-number">2</div>
-          <h3 class="step-title">Semantic Embeddings</h3>
-          <p class="step-desc">Every article is embedded into a 384-dimensional vector. Near-identical syndicated reposts collapse into a single story, and articles are ranked by relevance to each company's thesis — no keyword matching, no random sampling.</p>
+          <h3 class="step-title">Group Similar Stories</h3>
+          <p class="step-desc">We keep the same story from being counted twice.</p>
         </div>
         <div class="step-card">
           <div class="step-number">3</div>
-          <h3 class="step-title">Narrative Concentration</h3>
-          <p class="step-desc">We cluster the day's coverage and measure how tightly it focuses on a single story. One tight cluster across many sources is the real "strong narrative" signal — scattered chatter is noise.</p>
+          <h3 class="step-title">Spot the Signal</h3>
+          <p class="step-desc">We look for coverage that points to the same company or catalyst instead of scattered chatter.</p>
         </div>
         <div class="step-card">
           <div class="step-number">4</div>
-          <h3 class="step-title">Intelligent Ranking</h3>
-          <p class="step-desc">We weight quality signals over raw volume, penalize mega-caps to surface hidden gems, and boost stocks with focused, high-concentration narratives.</p>
+          <h3 class="step-title">Rank the Names</h3>
+          <p class="step-desc">We score each ticker by story strength, sentiment, and source quality.</p>
         </div>
         <div class="step-card">
           <div class="step-number">5</div>
-          <h3 class="step-title">Single Output</h3>
-          <p class="step-desc">The top-ranked stock is delivered to your phone at 9AM EST on trading days. Premium subscribers get the full top-5 list at the same time.</p>
+          <h3 class="step-title">Public Result</h3>
+          <p class="step-desc">The public dashboard shows the basket view before the open. Premium subscribers also see the rest of the ranked list.</p>
         </div>
       </div>
 
       <div class="code-section">
-        <div class="code-title">The Semantic Sorting Algorithm</div>
-        <div class="code-block"><pre><code><span class="code-comment">// 1. Embed every article once (Cloudflare Workers AI, bge-small-en-v1.5)</span>
-<span class="code-keyword">const</span> vectors = <span class="code-keyword">await</span> embed(articles.<span class="code-keyword">map</span>(a => a.title + a.summary));
-
-<span class="code-comment">// 2. Collapse syndicated reposts (cosine ≥ 0.88 = same story)</span>
-<span class="code-keyword">const</span> unique = dedupByCosine(articles, vectors, <span class="code-number">0.88</span>);
-
-<span class="code-comment">// 3. Cluster what's left → narrative concentration (0..1)</span>
-<span class="code-keyword">const</span> clusters = clusterByCosine(unique, <span class="code-number">0.78</span>);
-<span class="code-keyword">const</span> narrativeConc = <span class="code-number">1</span> - (clusters.length - <span class="code-number">1</span>) / (unique.length - <span class="code-number">1</span>);
-
-<span class="code-comment">// 4. Rank "top reasons" by relevance to the ticker thesis,</span>
-<span class="code-comment">//    not by random sampling</span>
-<span class="code-keyword">const</span> anchor = <span class="code-keyword">await</span> embed([ticker + <span class="code-string">" "</span> + sector + <span class="code-string">" outlook"</span>]);
-<span class="code-keyword">const</span> topReasons = unique
-  .<span class="code-keyword">map</span>(a => ({ a, sim: cosine(a.vec, anchor) }))
-  .<span class="code-keyword">sort</span>((x, y) => y.sim - x.sim)
-  .<span class="code-keyword">slice</span>(<span class="code-number">0</span>, <span class="code-number">3</span>);
-
-<span class="code-comment">// 5. Combined score uses the measured narrative signal</span>
-<span class="code-keyword">let</span> score = (confidence × <span class="code-number">0.45</span>)
-          + (sentiment × <span class="code-number">0.20</span>)
-          + (narrativeConc × <span class="code-number">0.20</span>)
-          + (qualitySources × <span class="code-number">0.05</span>);
-
-<span class="code-keyword">if</span> (isMegaCap) score *= <span class="code-number">0.75</span>;   <span class="code-comment">// -25%: deprioritize obvious picks</span>
-<span class="code-keyword">if</span> (isSmallCap) score *= <span class="code-number">1.35</span>;  <span class="code-comment">// +35%: surface hidden gems</span>
-<span class="code-keyword">if</span> (isPurePlay) score *= <span class="code-number">1.30</span>; <span class="code-comment">// +30%: focused exposure</span></code></pre></div>
+        <div class="code-title">What happens each day</div>
+        <div class="process-summary">
+          <p class="process-copy">We turn a noisy market feed into a short list people can actually use. The public site shows the daily basket, and Premium adds the rest of the ranked list plus recent history.</p>
+          <div class="process-chips" aria-label="Daily workflow">
+            <span>Read market news and price action</span>
+            <span>Group similar stories together</span>
+            <span>Rank the names that stand out</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- API Section -->
   <section class="how-it-works" id="api">
-    <div class="how-container">
-      <div class="how-header">
-        <h2>Build with the StockGenie API</h2>
-        <p>The same engine that powers the app, available as a clean JSON API. Free tier gives you today's pick. Premium unlocks history and the full ranked list.</p>
-      </div>
+      <div class="how-container">
+        <div class="how-header">
+          <h2>Build with the StockGenie API</h2>
+        <p>Use the same JSON API that powers the app. The free tier returns today's pick, and Premium unlocks history plus the full ranked list.</p>
+        </div>
 
       <div class="api-base">Base URL <code>https://api.stockgenie.app</code></div>
 
@@ -1149,13 +1161,13 @@ curl https://api.stockgenie.app/api/daily-stock
         <div class="step-card endpoint-card">
           <span class="endpoint-method">GET</span>
           <h3 class="step-title endpoint-path">/api/historical-stocks</h3>
-          <p class="step-desc">Past 7 days of picks. Pass <code style="color:#86efac;">Authorization: Bearer ...</code> with a Premium token.</p>
+          <p class="step-desc">Past seven days of picks. Pass <code style="color:#86efac;">Authorization: Bearer ...</code> with a Premium token.</p>
           <div class="endpoint-meta">Premium - Bearer token</div>
         </div>
         <div class="step-card endpoint-card">
           <span class="endpoint-method">GET</span>
           <h3 class="step-title endpoint-path">/api/mcp-schema</h3>
-          <p class="step-desc">Model Context Protocol tool schema - drop our picker straight into your MCP-aware agent.</p>
+          <p class="step-desc">Model Context Protocol tool schema for agents that need a structured picker.</p>
           <div class="endpoint-meta">Free - No rate limit</div>
         </div>
         <div class="step-card endpoint-card">

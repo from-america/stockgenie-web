@@ -71,7 +71,13 @@
       gap: 12px;
     }
     .fact:last-child { border-bottom: none; }
-    .fact-icon { font-size: 1.5rem; }
+    .fact-icon {
+      width: 1rem;
+      color: #a855f7;
+      font-size: 1rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
     .fact-text { color: rgba(255,255,255,0.9); }
     
     nav {
@@ -92,28 +98,28 @@
   <div class="stars"></div>
   <div class="container">
     <h1>StockGenie</h1>
-    <p class="subtitle">Your Daily AI Market Whisper</p>
+    <p class="subtitle">Daily picks with context.</p>
     
     <div class="orb"></div>
     
     <div class="facts">
       <div class="fact">
-        <span class="fact-icon">📈</span>
-        <span class="fact-text">AI-powered stock picks on U.S. trading weekdays (~9 AM ET)</span>
+        <span class="fact-icon">•</span>
+        <span class="fact-text">Stock picks published on U.S. trading weekdays, usually around 9 AM ET</span>
       </div>
       <div class="fact">
-        <span class="fact-icon">🎁</span>
-        <span class="fact-text">1 free stock pick every weekday</span>
+        <span class="fact-icon">•</span>
+        <span class="fact-text">One free stock pick every trading day</span>
       </div>
       <div class="fact">
-        <span class="fact-icon">⭐</span>
-        <span class="fact-text">Premium: 5 stocks + full history for $4.99/mo</span>
+        <span class="fact-icon">•</span>
+        <span class="fact-text">Premium: the full ranked list, recent history, and alerts</span>
       </div>
     </div>
     
     <nav>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
     </nav>
   </div>
 </body>
