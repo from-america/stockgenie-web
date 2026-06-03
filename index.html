@@ -527,8 +527,8 @@
     .code-number { color: #fbbf24; }
     .code-comment { color: rgba(255,255,255,0.4); }
 
-    /* Investment Dashboard */
-    .dashboard-section {
+    /* Signal Quality */
+    .signal-section {
       position: relative;
       display: flex;
       flex-direction: column;
@@ -536,50 +536,49 @@
       padding: 40px 24px 88px;
       min-height: auto;
       justify-content: flex-start;
-      scroll-margin-top: 96px;
     }
-    .dashboard-shell {
+    .signal-shell {
       max-width: 1200px;
       width: 100%;
       margin: 0 auto;
       padding: 28px;
       border-radius: 32px;
       display: grid;
-      grid-template-columns: minmax(320px, 0.95fr) minmax(360px, 1.25fr);
+      grid-template-columns: minmax(320px, 0.96fr) minmax(360px, 1.24fr);
       gap: 24px;
       align-items: stretch;
       background:
-        radial-gradient(circle at top left, rgba(168, 85, 247, 0.16), transparent 34%),
-        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 32%),
+        radial-gradient(circle at top left, rgba(34, 197, 94, 0.16), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.12), transparent 32%),
         linear-gradient(135deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.05) 100%);
     }
-    .dashboard-copy {
+    .signal-copy {
       display: flex;
       flex-direction: column;
       gap: 18px;
       padding: 6px 4px 6px 2px;
     }
-    .dashboard-eyebrow {
+    .signal-eyebrow {
       font-size: 0.72rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(192, 132, 252, 0.95);
+      color: rgba(134, 239, 172, 0.96);
       font-weight: 700;
     }
-    .dashboard-title {
+    .signal-title {
       font-size: clamp(2rem, 3vw, 3.1rem);
       line-height: 1.02;
       letter-spacing: -0.03em;
       margin: 0;
     }
-    .dashboard-subtitle {
+    .signal-subtitle {
       font-size: 1rem;
       line-height: 1.65;
       color: rgba(255,255,255,0.68);
       margin: 0;
-      max-width: 52ch;
+      max-width: 54ch;
     }
-    .dashboard-status {
+    .signal-status {
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -591,7 +590,7 @@
       background: rgba(255,255,255,0.07);
       border: 1px solid rgba(255,255,255,0.12);
     }
-    .dashboard-status::before {
+    .signal-status::before {
       content: "";
       width: 8px;
       height: 8px;
@@ -599,20 +598,20 @@
       background: linear-gradient(135deg, #34d399, #60a5fa);
       box-shadow: 0 0 12px rgba(96, 165, 250, 0.5);
     }
-    .dashboard-metrics {
+    .signal-metrics {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
       margin-top: 4px;
     }
-    .metric-card {
+    .signal-card {
       padding: 18px 18px 16px;
       border-radius: 18px;
       background: linear-gradient(135deg, rgba(10,10,18,0.34), rgba(255,255,255,0.04));
       border: 1px solid rgba(255,255,255,0.1);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
     }
-    .metric-label {
+    .signal-label {
       display: block;
       font-size: 0.74rem;
       text-transform: uppercase;
@@ -620,26 +619,26 @@
       color: rgba(255,255,255,0.5);
       margin-bottom: 10px;
     }
-    .metric-card strong {
+    .signal-card strong {
       display: block;
       font-size: 1.55rem;
       font-weight: 700;
       letter-spacing: -0.03em;
       margin-bottom: 5px;
     }
-    .metric-card small {
+    .signal-card small {
       display: block;
       color: rgba(255,255,255,0.58);
       font-size: 0.82rem;
       line-height: 1.45;
     }
-    .dashboard-note {
+    .signal-note {
       color: rgba(255,255,255,0.45);
       font-size: 0.84rem;
       line-height: 1.6;
       max-width: 58ch;
     }
-    .chart-panel {
+    .signal-panel {
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -648,29 +647,29 @@
       height: 100%;
       background: linear-gradient(180deg, rgba(6, 8, 16, 0.72), rgba(255,255,255,0.04));
     }
-    .chart-panel-head {
+    .signal-panel-head {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
     }
-    .chart-kicker {
+    .signal-kicker {
       display: block;
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(168, 85, 247, 0.95);
+      color: rgba(134, 239, 172, 0.96);
       margin-bottom: 8px;
     }
-    .chart-panel h3 {
+    .signal-panel h3 {
       font-size: 1.45rem;
       font-weight: 700;
       letter-spacing: -0.02em;
       margin: 0;
     }
-    .chart-legend {
+    .signal-legend {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -694,31 +693,54 @@
       border-radius: 999px;
       display: inline-block;
     }
-    .legend-swatch.strategy {
-      background: linear-gradient(135deg, #a855f7, #38bdf8);
-      box-shadow: 0 0 18px rgba(168,85,247,0.35);
+    .legend-swatch.win {
+      background: linear-gradient(135deg, #34d399, #22c55e);
+      box-shadow: 0 0 18px rgba(34,197,94,0.35);
     }
-    .legend-swatch.benchmark {
-      background: linear-gradient(135deg, rgba(255,255,255,0.55), rgba(255,255,255,0.15));
+    .legend-swatch.loss {
+      background: linear-gradient(135deg, #fb7185, #f97316);
+      box-shadow: 0 0 18px rgba(251,113,133,0.25);
     }
-    .chart-shell {
-      position: relative;
-      flex: 1 1 auto;
-      min-height: 420px;
+    .signal-strip {
+      display: grid;
+      grid-template-columns: repeat(18, minmax(0, 1fr));
+      gap: 6px;
+      padding: 16px;
       border-radius: 22px;
-      overflow: hidden;
       background:
         linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
-        radial-gradient(circle at top, rgba(168,85,247,0.12), transparent 42%);
+        radial-gradient(circle at top, rgba(34,197,94,0.12), transparent 42%);
       border: 1px solid rgba(255,255,255,0.08);
     }
-    .chart-shell svg {
+    .signal-cell {
+      aspect-ratio: 1 / 1;
+      border-radius: 7px;
       display: block;
-      width: 100%;
-      height: 100%;
-      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.04);
+      transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
     }
-    .chart-footer {
+    .signal-cell:hover {
+      transform: translateY(-1px) scale(1.04);
+    }
+    .signal-cell.win {
+      background: linear-gradient(135deg, rgba(34,197,94,0.95), rgba(16,185,129,0.78));
+      box-shadow: 0 0 18px rgba(34,197,94,0.22);
+    }
+    .signal-cell.loss {
+      background: linear-gradient(135deg, rgba(251,113,133,0.92), rgba(244,114,182,0.7));
+      box-shadow: 0 0 18px rgba(251,113,133,0.16);
+    }
+    .signal-cell::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.18), transparent 45%);
+      pointer-events: none;
+    }
+    .signal-footer {
       display: flex;
       justify-content: space-between;
       gap: 12px;
@@ -818,27 +840,26 @@
       .code-block {
         font-size: 0.75rem;
       }
-      .dashboard-shell {
+      .signal-section {
+        padding: 28px 16px 72px;
+      }
+      .signal-shell {
         grid-template-columns: 1fr;
         padding: 20px;
       }
-      .dashboard-section {
-        padding: 28px 16px 72px;
-      }
-      .dashboard-metrics {
+      .signal-metrics {
         grid-template-columns: 1fr;
       }
-      .chart-shell,
-      .chart-shell svg {
-        min-height: 340px;
+      .signal-strip {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
       }
       .premium-grid {
         grid-template-columns: 1fr;
       }
-      .chart-panel-head {
+      .signal-panel-head {
         flex-direction: column;
       }
-      .chart-legend {
+      .signal-legend {
         justify-content: flex-start;
       }
     }
@@ -851,7 +872,8 @@
   <nav>
     <a href="#" class="nav-brand">StockGenie</a>
     <div class="nav-links">
-      <a href="#dashboard">Dashboard</a>
+      <a href="#results">Results</a>
+      <a href="#how-it-works">How It Works</a>
       <a href="#api">API</a>
       <a href="support.html">Support</a>
       <a href="privacy.html">Privacy</a>
@@ -866,7 +888,8 @@
 
   <!-- Mobile dropdown menu -->
   <div class="nav-menu" id="navMenu" data-open="false">
-    <a href="#dashboard" data-menu-close>Dashboard</a>
+    <a href="#results" data-menu-close>Results</a>
+    <a href="#how-it-works" data-menu-close>How It Works</a>
     <a href="#api" data-menu-close>API</a>
     <a href="support.html">Support</a>
     <a href="privacy.html">Privacy</a>
@@ -895,11 +918,11 @@
         </svg>
         Download on the App Store
       </a>
-      <a href="#dashboard" class="cta-btn glass">
+      <a href="#results" class="cta-btn glass">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M4 19h16"/><path d="M7 16V8"/><path d="M12 16V4"/><path d="M17 16v-6"/>
         </svg>
-        View Dashboard
+        See Results
       </a>
       <a href="terms.html" class="cta-btn glass">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -987,60 +1010,59 @@
     </div>
   </section>
 
-  <!-- Investment Dashboard -->
-  <section class="dashboard-section" id="dashboard" data-dashboard-root>
-    <div class="dashboard-shell glass">
-      <div class="dashboard-copy">
-        <span class="dashboard-eyebrow">Public performance dashboard</span>
-        <h2 class="dashboard-title">What if you invested $1 every trading day in StockGenie's equal-weight top 5 basket since Dec 2, 2025?</h2>
-        <p class="dashboard-subtitle">This view compares StockGenie's equal-weight top 5 basket against SPY using the same cash flow. It also shows how the basket compares with the free daily pick.</p>
-        <div class="dashboard-status" data-role="dashboard-status">Loading equal-weight top 5 basket performance...</div>
-        <div class="dashboard-metrics">
-          <div class="metric-card">
-            <span class="metric-label">StockGenie basket value</span>
-            <strong data-role="strategy-value">$1,000</strong>
-            <small>What $1 a day in the basket grew to</small>
+  <section class="signal-section" id="results" data-signal-root>
+    <div class="signal-shell glass">
+      <div class="signal-copy">
+        <span class="signal-eyebrow">Public signal quality</span>
+        <h2 class="signal-title" data-role="signal-headline">StockGenie beat SPY on 72.2% of trading days</h2>
+        <p class="signal-subtitle" data-role="signal-subtitle">Since Dec 2, 2025, the free daily pick has outperformed SPY on 127 out of 176 trading days. The public site shows the pick; Premium keeps the rest of the ranked list locked in the app.</p>
+        <div class="signal-status" data-role="signal-status">Loading live signal quality...</div>
+        <div class="signal-metrics">
+          <div class="signal-card">
+            <span class="signal-label">Win rate</span>
+            <strong data-role="signal-win-rate">72.2%</strong>
+            <small>Trading days the pick finished ahead of SPY</small>
           </div>
-          <div class="metric-card">
-            <span class="metric-label">SPY value</span>
-            <strong data-role="benchmark-value">$1,000</strong>
-            <small>What the same daily cash flow became in SPY</small>
+          <div class="signal-card">
+            <span class="signal-label">Days ahead</span>
+            <strong data-role="signal-days-ahead">127 / 176</strong>
+            <small>Winning sessions since Dec 2, 2025</small>
           </div>
-          <div class="metric-card">
-            <span class="metric-label">Lead vs SPY</span>
-            <strong data-role="alpha-value">$0</strong>
-            <small>Difference versus SPY</small>
+          <div class="signal-card">
+            <span class="signal-label">Median edge</span>
+            <strong data-role="signal-median-edge">+0.17%</strong>
+            <small>Typical daily gap versus SPY</small>
           </div>
-          <div class="metric-card">
-            <span class="metric-label">Strategy return</span>
-            <strong data-role="return-value">0.0%</strong>
-            <small>Open-to-open change across the period</small>
+          <div class="signal-card">
+            <span class="signal-label">Best streak</span>
+            <strong data-role="signal-best-streak">19 days</strong>
+            <small>Longest run of outperformance</small>
           </div>
         </div>
-        <p class="dashboard-note" data-role="dashboard-note">These numbers assume $1 invested on each trading day in StockGenie's equal-weight top 5 basket since Dec 2, 2025. They are here for context, not investment advice.</p>
+        <p class="signal-note" data-role="signal-note">Open-to-open performance since Dec 2, 2025. Hypothetical, not investment advice.</p>
       </div>
 
-      <div class="chart-panel">
-        <div class="chart-panel-head">
+      <div class="signal-panel">
+        <div class="signal-panel-head">
           <div>
-            <span class="chart-kicker" data-role="dashboard-kicker">Equal-weight top 5</span>
-            <h3>StockGenie basket vs SPY</h3>
+            <span class="signal-kicker" data-role="signal-kicker">Daily pick vs SPY</span>
+            <h3>Winning-day pattern</h3>
           </div>
-          <div class="chart-legend">
-            <span class="legend-item"><span class="legend-swatch strategy"></span>StockGenie basket</span>
-            <span class="legend-item"><span class="legend-swatch benchmark"></span>SPY</span>
+          <div class="signal-legend">
+            <span class="legend-item"><span class="legend-swatch win"></span>Beats SPY</span>
+            <span class="legend-item"><span class="legend-swatch loss"></span>Falls behind</span>
           </div>
         </div>
-        <div class="chart-shell" data-role="dashboard-chart" aria-live="polite"></div>
-        <div class="chart-footer">
-          <span data-role="dashboard-range">Range: loading...</span>
-          <span data-role="dashboard-source">Source: api.stockgenie.app</span>
+        <div class="signal-strip" data-role="signal-strip" aria-live="polite"></div>
+        <div class="signal-footer">
+          <span data-role="signal-range">Range: loading...</span>
+          <span data-role="signal-source">Source: live public API</span>
         </div>
       </div>
     </div>
 
     <div class="premium-cta">
-      <p>The website shows the public dashboard. In the app, Premium unlocks the full ranked list, historical tracking, and alerts.</p>
+      <p>Premium unlocks the full ranked list, historical tracking, and alerts inside the app. The public site stays focused on the daily pick.</p>
       <a href="support.html#premium" class="cta-btn glass">See Premium Details</a>
     </div>
 
@@ -1067,7 +1089,7 @@
   </section>
 
   <!-- How It Works Section -->
-  <section class="how-it-works">
+  <section class="how-it-works" id="how-it-works">
     <div class="how-container">
       <div class="how-header">
         <h2>How It Works</h2>
@@ -1098,14 +1120,14 @@
         <div class="step-card">
           <div class="step-number">5</div>
           <h3 class="step-title">Public Result</h3>
-          <p class="step-desc">The public dashboard shows the basket view before the open. Premium subscribers also see the rest of the ranked list.</p>
+          <p class="step-desc">The public site shows the day’s pick before the open. Premium subscribers also see the rest of the ranked list.</p>
         </div>
       </div>
 
       <div class="code-section">
         <div class="code-title">What happens each day</div>
         <div class="process-summary">
-          <p class="process-copy">We turn a noisy market feed into a short list people can actually use. The public site shows the daily basket, and Premium adds the rest of the ranked list plus recent history.</p>
+          <p class="process-copy">We turn a noisy market feed into a short list people can actually use. The public site shows the day’s pick, and Premium adds the rest of the ranked list plus recent history.</p>
           <div class="process-chips" aria-label="Daily workflow">
             <span>Read market news and price action</span>
             <span>Group similar stories together</span>
@@ -1204,7 +1226,7 @@ curl https://api.stockgenie.app/api/daily-stock
     © <span id="year"></span> <a href="https://fromamerica-llc.com/" target="_blank" rel="noopener noreferrer">FROM AMERICA LLC</a>. All rights reserved.
   </footer>
 
-  <script src="js/main.js" defer></script>
+  <script type="module" src="js/main.mjs"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
