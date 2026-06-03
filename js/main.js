@@ -198,7 +198,7 @@ function buildSampleDashboard() {
       strategyLabel,
       tradingDays: dates.length,
       uniqueTickers: 5,
-      source: 'demo-fallback',
+      source: 'local-sample',
     },
   };
 }
@@ -472,7 +472,7 @@ function renderDashboard(root, payload, source, comparisonPayload = null) {
   const weightingMode = String(summary.weightingMode || meta.weightingMode || 'equal').toLowerCase();
   const basketSize = Math.max(1, Math.floor(toFiniteNumber(summary.basketSize ?? meta.basketSize, strategyType === 'basket' ? DEFAULT_BASKET_SIZE : 1)));
   const strategyLabel = summary.strategyLabel || meta.strategyLabel || buildStrategyLabel(strategyType, weightingMode, basketSize);
-  const sourceLabel = source === 'live' ? 'Live data from api.stockgenie.app' : 'Demo fallback loaded locally';
+  const sourceLabel = source === 'live' ? 'Live data from api.stockgenie.app' : 'Local sample data loaded';
   const updatedLabel = meta.generatedAt ? `Updated ${formatGeneratedAt(meta.generatedAt)}` : '';
   const tradingDaysLabel = meta.tradingDays ? `${meta.tradingDays} trading days` : '';
   const contributedLabel = toFiniteNumber(summary.totalContributed, null) !== null
@@ -522,7 +522,7 @@ function renderDashboard(root, payload, source, comparisonPayload = null) {
   alphaValueEl.textContent = formatSignedMoney(summary.alpha);
   returnValueEl.textContent = formatPercent(summary.strategyReturnPct);
   rangeEl.textContent = `Range: ${formatRangeLabel(meta.startDate || payload.dates[0], meta.endDate || payload.dates[payload.dates.length - 1])}`;
-  sourceEl.textContent = `Source: ${source === 'live' ? 'api.stockgenie.app' : 'demo fallback'}${tradingDaysLabel ? ` - ${tradingDaysLabel}` : ''}${contributedLabel ? ` - ${contributedLabel}` : ''}${basketLabel ? ` - ${basketLabel}` : ''}`;
+  sourceEl.textContent = `Source: ${source === 'live' ? 'api.stockgenie.app' : 'local sample'}${tradingDaysLabel ? ` - ${tradingDaysLabel}` : ''}${contributedLabel ? ` - ${contributedLabel}` : ''}${basketLabel ? ` - ${basketLabel}` : ''}`;
   chartEl.innerHTML = buildSvgMarkup(payload);
 }
 
@@ -547,7 +547,7 @@ async function initDashboard() {
     source = result.source;
     comparisonPayload = result.comparisonPayload;
   } catch (error) {
-    console.warn('[StockGenie] Falling back to sample dashboard data:', error);
+    console.warn('[StockGenie] Falling back to local sample dashboard data:', error);
     payload = buildSampleDashboard();
     source = 'demo';
   }
