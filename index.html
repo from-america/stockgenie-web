@@ -6,8 +6,6 @@
   <title>StockGenie</title>
   <link rel="icon" type="image/png" href="app-icon.png">
   <link rel="apple-touch-icon" href="app-icon.png">
-  <meta name="apple-itunes-app" content="app-id=6754515450">
-  <meta name="description" content="StockGenie — Your Daily AI Market Whisper. Get the iOS app on the App Store.">
   <style>
     :root {
       --glass-bg: rgba(255, 255, 255, 0.08);
@@ -108,84 +106,6 @@
       background: rgba(255,255,255,0.1);
     }
 
-    /* Hamburger (mobile only) */
-    .nav-burger {
-      display: none;
-      width: 38px;
-      height: 38px;
-      border: none;
-      background: rgba(255,255,255,0.08);
-      border-radius: 10px;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      padding: 0;
-    }
-    .nav-burger:hover { background: rgba(255,255,255,0.14); }
-    .nav-burger span {
-      display: block;
-      width: 18px;
-      height: 2px;
-      background: rgba(255,255,255,0.85);
-      border-radius: 2px;
-      position: relative;
-    }
-    .nav-burger span::before,
-    .nav-burger span::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      width: 18px;
-      height: 2px;
-      background: rgba(255,255,255,0.85);
-      border-radius: 2px;
-      transition: transform 0.2s ease, top 0.2s ease;
-    }
-    .nav-burger span::before { top: -6px; }
-    .nav-burger span::after  { top:  6px; }
-    .nav-burger[aria-expanded="true"] span { background: transparent; }
-    .nav-burger[aria-expanded="true"] span::before { top: 0; transform: rotate(45deg); }
-    .nav-burger[aria-expanded="true"] span::after  { top: 0; transform: rotate(-45deg); }
-
-    /* Mobile dropdown menu */
-    .nav-menu {
-      display: none;
-      position: fixed;
-      top: 60px;
-      left: 0;
-      right: 0;
-      z-index: 99;
-      padding: 12px 16px 20px;
-      background: rgba(13, 0, 38, 0.96);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      transform: translateY(-110%);
-      transition: transform 0.25s ease;
-    }
-    body.ios-banner-shown .nav-menu { top: 116px; }
-    .nav-menu[data-open="true"] {
-      display: block;
-      transform: translateY(0);
-    }
-    .nav-menu a {
-      display: block;
-      padding: 14px 16px;
-      color: rgba(255,255,255,0.85);
-      text-decoration: none;
-      font-size: 1rem;
-      border-radius: 12px;
-      transition: background 0.15s ease;
-    }
-    .nav-menu a:hover { background: rgba(255,255,255,0.08); }
-    .nav-menu a.menu-cta {
-      background: linear-gradient(135deg, #ffffff 0%, #e8e8ee 100%);
-      color: #0d0026;
-      font-weight: 600;
-      text-align: center;
-      margin-top: 12px;
-    }
-
     /* Sections */
     section {
       min-height: 100vh;
@@ -273,7 +193,7 @@
     }
     .cta-btn:hover {
       transform: translateY(-2px);
-      box-shadow:
+      box-shadow: 
         0 12px 40px rgba(0, 0, 0, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
@@ -281,108 +201,6 @@
       width: 18px;
       height: 18px;
       opacity: 0.8;
-    }
-    .cta-btn-primary {
-      background: linear-gradient(135deg, #ffffff 0%, #e8e8ee 100%);
-      color: #0d0026;
-      font-weight: 600;
-      border: 1px solid rgba(255,255,255,0.4);
-      box-shadow:
-        0 8px 28px rgba(168, 85, 247, 0.35),
-        inset 0 1px 0 rgba(255,255,255,0.6);
-    }
-    .cta-btn-primary svg {
-      opacity: 1;
-    }
-    .cta-btn-primary:hover {
-      box-shadow:
-        0 12px 40px rgba(168, 85, 247, 0.5),
-        inset 0 1px 0 rgba(255,255,255,0.7);
-    }
-    .nav-cta {
-      background: linear-gradient(135deg, #ffffff 0%, #e8e8ee 100%);
-      color: #0d0026 !important;
-      font-weight: 600;
-      border-radius: 999px;
-      padding: 7px 14px !important;
-    }
-
-    /* Mobile App Store banner (custom, since Apple's Smart Banner only
-       activates once an app is live in the App Store). */
-    .ios-banner {
-      display: none;
-    }
-    @media (max-width: 768px) {
-      .ios-banner {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 200;
-        padding: 8px 12px;
-        background: rgba(20, 8, 46, 0.92);
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        font-size: 0.85rem;
-        animation: ios-banner-in 0.3s ease-out;
-      }
-      .ios-banner.hidden {
-        display: none;
-      }
-      .ios-banner-dismiss {
-        background: none;
-        border: none;
-        color: rgba(255,255,255,0.5);
-        font-size: 1.4rem;
-        line-height: 1;
-        padding: 4px 8px;
-        cursor: pointer;
-        flex-shrink: 0;
-      }
-      .ios-banner-icon {
-        width: 38px;
-        height: 38px;
-        border-radius: 9px;
-        flex-shrink: 0;
-      }
-      .ios-banner-text {
-        flex: 1;
-        line-height: 1.25;
-        min-width: 0;
-      }
-      .ios-banner-title {
-        color: white;
-        font-weight: 600;
-      }
-      .ios-banner-sub {
-        color: rgba(255,255,255,0.55);
-        font-size: 0.72rem;
-      }
-      .ios-banner-cta {
-        background: #ffffff;
-        color: #0d0026;
-        font-weight: 700;
-        font-size: 0.8rem;
-        text-decoration: none;
-        padding: 7px 14px;
-        border-radius: 999px;
-        flex-shrink: 0;
-      }
-      /* Push fixed nav and content down so the banner doesn't cover them */
-      body.ios-banner-shown nav {
-        top: 56px;
-      }
-      body.ios-banner-shown .hero-section {
-        padding-top: 156px;
-      }
-      @keyframes ios-banner-in {
-        from { transform: translateY(-100%); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-      }
     }
 
     /* Scroll indicator */
@@ -472,9 +290,6 @@
       .iphone-label {
         font-size: 0.8rem;
       }
-      /* Mobile nav: hide the inline links and show the hamburger menu instead. */
-      nav .nav-links { display: none; }
-      .nav-burger { display: inline-flex; }
     }
 
     @media (max-width: 480px) {
@@ -681,45 +496,285 @@
     .code-number { color: #fbbf24; }
     .code-comment { color: rgba(255,255,255,0.4); }
 
-    /* API endpoint cards */
-    .endpoint-card { padding-top: 24px; }
-    .endpoint-method {
-      display: inline-block;
-      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-      font-size: 0.7rem;
+    /* Investment Dashboard */
+    .dashboard-section {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 40px 24px 88px;
+      min-height: auto;
+      justify-content: flex-start;
+      scroll-margin-top: 96px;
+    }
+    .dashboard-shell {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 28px;
+      border-radius: 32px;
+      display: grid;
+      grid-template-columns: minmax(320px, 0.95fr) minmax(360px, 1.25fr);
+      gap: 24px;
+      align-items: stretch;
+      background:
+        radial-gradient(circle at top left, rgba(168, 85, 247, 0.16), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 32%),
+        linear-gradient(135deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.05) 100%);
+    }
+    .dashboard-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 6px 4px 6px 2px;
+    }
+    .dashboard-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(192, 132, 252, 0.95);
       font-weight: 700;
-      letter-spacing: 0.05em;
-      padding: 3px 8px;
-      border-radius: 6px;
-      background: rgba(168, 85, 247, 0.18);
-      color: #d8b4fe;
-      margin-bottom: 12px;
     }
-    .endpoint-method.post { background: rgba(74, 222, 128, 0.16); color: #86efac; }
-    .endpoint-path {
-      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace !important;
-      font-size: 0.95rem !important;
-      word-break: break-all;
+    .dashboard-title {
+      font-size: clamp(2rem, 3vw, 3.1rem);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      margin: 0;
     }
-    .endpoint-meta {
+    .dashboard-subtitle {
+      font-size: 1rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.68);
+      margin: 0;
+      max-width: 52ch;
+    }
+    .dashboard-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.78);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .dashboard-status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #34d399, #60a5fa);
+      box-shadow: 0 0 12px rgba(96, 165, 250, 0.5);
+    }
+    .dashboard-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 4px;
+    }
+    .metric-card {
+      padding: 18px 18px 16px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(10,10,18,0.34), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .metric-label {
+      display: block;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 10px;
+    }
+    .metric-card strong {
+      display: block;
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 5px;
+    }
+    .metric-card small {
+      display: block;
+      color: rgba(255,255,255,0.58);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+    .dashboard-note {
+      color: rgba(255,255,255,0.45);
+      font-size: 0.84rem;
+      line-height: 1.6;
+      max-width: 58ch;
+    }
+    .chart-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+      border-radius: 26px;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(6, 8, 16, 0.72), rgba(255,255,255,0.04));
+    }
+    .chart-panel-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .chart-kicker {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(168, 85, 247, 0.95);
+      margin-bottom: 8px;
+    }
+    .chart-panel h3 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.75);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .legend-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+    .legend-swatch.strategy {
+      background: linear-gradient(135deg, #a855f7, #38bdf8);
+      box-shadow: 0 0 18px rgba(168,85,247,0.35);
+    }
+    .legend-swatch.benchmark {
+      background: linear-gradient(135deg, rgba(255,255,255,0.55), rgba(255,255,255,0.15));
+    }
+    .chart-shell {
+      position: relative;
+      flex: 1 1 auto;
+      min-height: 420px;
+      border-radius: 22px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
+        radial-gradient(circle at top, rgba(168,85,247,0.12), transparent 42%);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .chart-shell svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+    }
+    .chart-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.82rem;
+    }
+    .premium-grid {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .premium-card {
+      position: relative;
+      overflow: hidden;
+      padding: 22px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .premium-card.locked::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(11, 15, 26, 0.42), rgba(11, 15, 26, 0.24));
+      pointer-events: none;
+    }
+    .lock-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .premium-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.15rem;
+    }
+    .premium-card p {
+      margin: 0 0 18px;
+      color: rgba(255,255,255,0.62);
+      font-size: 0.92rem;
+      line-height: 1.55;
+      max-width: 34ch;
+    }
+    .premium-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
       font-size: 0.78rem;
-      color: rgba(255,255,255,0.4);
-      margin-top: 10px;
-      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+      color: rgba(255,255,255,0.85);
+      background: rgba(168,85,247,0.18);
+      border: 1px solid rgba(168,85,247,0.22);
     }
-    .api-base {
-      text-align: center;
-      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.55);
-      margin-bottom: 32px;
+    .premium-cta {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
     }
-    .api-base code {
-      color: #d8b4fe;
-      background: rgba(168, 85, 247, 0.1);
-      padding: 4px 10px;
-      border-radius: 8px;
-      border: 1px solid rgba(168, 85, 247, 0.2);
+    .premium-cta p {
+      margin: 0;
+      color: rgba(255,255,255,0.64);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      max-width: 56ch;
+    }
+    .premium-cta .cta-btn {
+      white-space: nowrap;
     }
 
     @media (max-width: 768px) {
@@ -732,30 +787,40 @@
       .code-block {
         font-size: 0.75rem;
       }
+      .dashboard-shell {
+        grid-template-columns: 1fr;
+        padding: 20px;
+      }
+      .dashboard-section {
+        padding: 28px 16px 72px;
+      }
+      .dashboard-metrics {
+        grid-template-columns: 1fr;
+      }
+      .chart-shell,
+      .chart-shell svg {
+        min-height: 340px;
+      }
+      .premium-grid {
+        grid-template-columns: 1fr;
+      }
+      .chart-panel-head {
+        flex-direction: column;
+      }
+      .chart-legend {
+        justify-content: flex-start;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Mobile App Store banner -->
-  <div class="ios-banner hidden" id="iosBanner" role="region" aria-label="Get StockGenie for iOS">
-    <button class="ios-banner-dismiss" id="iosBannerDismiss" aria-label="Dismiss">&times;</button>
-    <picture>
-      <source srcset="app-icon.webp" type="image/webp">
-      <img src="app-icon.png" alt="" class="ios-banner-icon">
-    </picture>
-    <div class="ios-banner-text">
-      <div class="ios-banner-title">StockGenie</div>
-      <div class="ios-banner-sub">Your Daily AI Market Whisper</div>
-    </div>
-    <a href="https://apps.apple.com/app/id6754515450" class="ios-banner-cta" target="_blank" rel="noopener">Get</a>
-  </div>
-
   <div class="stars"></div>
 
   <!-- Fixed Nav -->
   <nav>
     <a href="#" class="nav-brand">StockGenie</a>
     <div class="nav-links">
+      <a href="#dashboard">Dashboard</a>
       <a href="#api">API</a>
       <a href="support.html">Support</a>
       <a href="privacy.html">Privacy Policy</a>
@@ -770,6 +835,7 @@
 
   <!-- Mobile dropdown menu -->
   <div class="nav-menu" id="navMenu" data-open="false">
+    <a href="#dashboard" data-menu-close>Dashboard</a>
     <a href="#api" data-menu-close>API</a>
     <a href="support.html">Support</a>
     <a href="privacy.html">Privacy Policy</a>
@@ -797,6 +863,12 @@
           <path d="M17.05 13.06c-.03-3.05 2.49-4.51 2.6-4.58-1.42-2.07-3.62-2.36-4.41-2.39-1.88-.19-3.66 1.1-4.61 1.1-.96 0-2.42-1.07-3.98-1.04-2.05.03-3.94 1.19-5 3.02-2.13 3.7-.55 9.18 1.53 12.18 1.02 1.47 2.23 3.12 3.82 3.06 1.54-.06 2.12-.99 3.98-.99 1.85 0 2.38.99 4 .96 1.65-.03 2.7-1.5 3.71-2.97 1.17-1.7 1.65-3.35 1.68-3.44-.04-.02-3.22-1.24-3.32-4.91zM14.2 4.27c.84-1.02 1.41-2.43 1.25-3.85-1.21.05-2.69.81-3.56 1.83-.78.9-1.46 2.34-1.27 3.72 1.35.1 2.74-.69 3.58-1.7z"/>
         </svg>
         Download on the App Store
+      </a>
+      <a href="#dashboard" class="cta-btn glass">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 19h16"/><path d="M7 16V8"/><path d="M12 16V4"/><path d="M17 16v-6"/>
+        </svg>
+        View Dashboard
       </a>
       <a href="terms.html" class="cta-btn glass">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -884,6 +956,85 @@
     </div>
   </section>
 
+  <!-- Investment Dashboard -->
+  <section class="dashboard-section" id="dashboard" data-dashboard-root>
+    <div class="dashboard-shell glass">
+      <div class="dashboard-copy">
+        <span class="dashboard-eyebrow">Public performance dashboard</span>
+        <h2 class="dashboard-title">What if you invested $1,000 in the free daily pick?</h2>
+        <p class="dashboard-subtitle">A six-month public curve compares the free daily pick against SPY. Premium-only features stay locked, so the homepage keeps the public story clean.</p>
+        <div class="dashboard-status" data-role="dashboard-status">Loading six-month performance...</div>
+        <div class="dashboard-metrics">
+          <div class="metric-card">
+            <span class="metric-label">Strategy value</span>
+            <strong data-role="strategy-value">$1,000</strong>
+            <small>Hypothetical value from the free daily pick</small>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Benchmark value</span>
+            <strong data-role="benchmark-value">$1,000</strong>
+            <small>The same capital invested in SPY</small>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Alpha</span>
+            <strong data-role="alpha-value">$0</strong>
+            <small>Absolute outperformance versus the benchmark</small>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Strategy return</span>
+            <strong data-role="return-value">0.0%</strong>
+            <small>Open-to-open change over the selected window</small>
+          </div>
+        </div>
+        <p class="dashboard-note">Numbers are hypothetical, use open-to-open price moves, and are shown for education rather than investment advice.</p>
+      </div>
+
+      <div class="chart-panel">
+        <div class="chart-panel-head">
+          <div>
+            <span class="chart-kicker">Six-Month Curve</span>
+            <h3>Free pick vs SPY</h3>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-swatch strategy"></span>Free pick</span>
+            <span class="legend-item"><span class="legend-swatch benchmark"></span>SPY</span>
+          </div>
+        </div>
+        <div class="chart-shell" data-role="dashboard-chart" aria-live="polite"></div>
+        <div class="chart-footer">
+          <span data-role="dashboard-range">Range: loading...</span>
+          <span data-role="dashboard-source">Source: api.stockgenie.app</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="premium-cta">
+      <p>Premium is intentionally gated in the app. The website keeps the public dashboard open while the full ranked list, historical tracking, and alerts stay locked.</p>
+      <a href="support.html#premium" class="cta-btn glass">See Premium Details</a>
+    </div>
+
+    <div class="premium-grid">
+      <div class="premium-card locked">
+        <span class="lock-badge">Locked • Premium</span>
+        <h3>Top 5 Picks</h3>
+        <p>Unlock the full ranked list every trading day instead of only the free #1 pick.</p>
+        <span class="premium-pill">Shows inside the app</span>
+      </div>
+      <div class="premium-card locked">
+        <span class="lock-badge">Locked • Premium</span>
+        <h3>Historical Performance</h3>
+        <p>Track how every pick would have performed over time, with the latest 7 days surfaced first.</p>
+        <span class="premium-pill">Subscription required</span>
+      </div>
+      <div class="premium-card locked">
+        <span class="lock-badge">Locked • Premium</span>
+        <h3>Morning Alerts</h3>
+        <p>Get notified before the open so the day's picks are ready when the market starts moving.</p>
+        <span class="premium-pill">Delivered at market open</span>
+      </div>
+    </div>
+  </section>
+
   <!-- How It Works Section -->
   <section class="how-it-works">
     <div class="how-container">
@@ -953,7 +1104,6 @@
     </div>
   </section>
 
-
   <!-- API Section -->
   <section class="how-it-works" id="api">
     <div class="how-container">
@@ -965,7 +1115,7 @@
       <div class="api-base">Base URL <code>https://api.stockgenie.app</code></div>
 
       <div class="code-section">
-        <div class="code-title">Quickstart — today's pick</div>
+        <div class="code-title">Quickstart - today's pick</div>
         <div class="code-block"><pre><code><span class="code-comment"># One stock per day, no auth, rate-limited per IP</span>
 curl https://api.stockgenie.app/api/daily-stock
 
@@ -994,30 +1144,30 @@ curl https://api.stockgenie.app/api/daily-stock
           <span class="endpoint-method">GET</span>
           <h3 class="step-title endpoint-path">/api/daily-stock</h3>
           <p class="step-desc">Today's AI-selected stock pick with confidence, reasons, and source articles.</p>
-          <div class="endpoint-meta">Free · 1 req/day per IP</div>
+          <div class="endpoint-meta">Free - 1 req/day per IP</div>
         </div>
         <div class="step-card endpoint-card">
           <span class="endpoint-method">GET</span>
           <h3 class="step-title endpoint-path">/api/historical-stocks</h3>
-          <p class="step-desc">Past 7 days of picks. Pass <code style="color:#86efac;">Authorization: Bearer …</code> with a Premium token.</p>
-          <div class="endpoint-meta">Premium · Bearer token</div>
+          <p class="step-desc">Past 7 days of picks. Pass <code style="color:#86efac;">Authorization: Bearer ...</code> with a Premium token.</p>
+          <div class="endpoint-meta">Premium - Bearer token</div>
         </div>
         <div class="step-card endpoint-card">
           <span class="endpoint-method">GET</span>
           <h3 class="step-title endpoint-path">/api/mcp-schema</h3>
-          <p class="step-desc">Model Context Protocol tool schema — drop our picker straight into your MCP-aware agent.</p>
-          <div class="endpoint-meta">Free · No rate limit</div>
+          <p class="step-desc">Model Context Protocol tool schema - drop our picker straight into your MCP-aware agent.</p>
+          <div class="endpoint-meta">Free - No rate limit</div>
         </div>
         <div class="step-card endpoint-card">
           <span class="endpoint-method">GET</span>
           <h3 class="step-title endpoint-path">/api/health</h3>
           <p class="step-desc">Liveness probe. Returns service name, version, and timestamp.</p>
-          <div class="endpoint-meta">Free · No rate limit</div>
+          <div class="endpoint-meta">Free - No rate limit</div>
         </div>
       </div>
 
       <div class="code-section">
-        <div class="code-title">Premium request — last 7 days</div>
+        <div class="code-title">Premium request - last 7 days</div>
         <div class="code-block"><pre><code>curl <span class="code-string">"https://api.stockgenie.app/api/historical-stocks"</span> \
   -H <span class="code-string">"Authorization: Bearer YOUR_PREMIUM_TOKEN"</span></code></pre></div>
       </div>
@@ -1037,10 +1187,12 @@ curl https://api.stockgenie.app/api/daily-stock
     </div>
   </section>
 
+
   <footer>
     © <span id="year"></span> <a href="https://fromamerica-llc.com/" target="_blank" rel="noopener noreferrer">FROM AMERICA LLC</a>. All rights reserved.
   </footer>
 
+  <script src="js/main.js" defer></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
